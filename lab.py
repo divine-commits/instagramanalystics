@@ -347,7 +347,7 @@ def cmd_test(args):
     print(f"Posted:             {manila(details['timestamp'])} (Asia/Manila)")
     print(f"Type:               {fmt_type(details)}  (media_type={details.get('media_type')}, product_type={details.get('media_product_type')})")
     for f, v in extras.items():
-        print(f"{f + ":":<20}{v}")
+        print(f"{f + ':':<20}{v}")
 
     print("\nTrying each Insights metric one by one…")
     results, valid_list = probe_metrics(media_id, token)
