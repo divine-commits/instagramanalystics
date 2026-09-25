@@ -1,0 +1,6 @@
+# Secrets: never commit
+.env
+# Your own post data
+reports/
+logs/
+__pycache__/
