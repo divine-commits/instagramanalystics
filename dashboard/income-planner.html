@@ -19,6 +19,7 @@
   --s1-soft: rgba(42, 120, 214, .38);
   --s2: #eb6834;
   --s3: #1baf7a;
+  --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948; --s1-mid: rgba(42, 120, 214, .6);
   --good: #0ca30c;
   --warn: #fab219;
   --serious: #ec835a;
@@ -33,7 +34,7 @@
   :root:not([data-theme="light"]) {
     --bg: #0d1117; --surface: #151b23; --ink: #edf1f6; --ink-2: #b6c0cd; --muted: #8b95a4;
     --line: #242c37; --line-2: #354050; --accent: #6ea8f0; --accent-ink: #0b1320; --accent-wash: #18263b;
-    --s1: #3987e5; --s1-soft: rgba(57, 135, 229, .4); --s2: #d95926; --s3: #199e70;
+    --s1: #3987e5; --s1-soft: rgba(57, 135, 229, .4); --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s1-mid: rgba(57, 135, 229, .62);
     --good-ink: #2fbf2f; --crit-ink: #ec7272; --shadow: none;
     color-scheme: dark;
   }
@@ -41,7 +42,7 @@
 :root[data-theme="dark"] {
   --bg: #0d1117; --surface: #151b23; --ink: #edf1f6; --ink-2: #b6c0cd; --muted: #8b95a4;
   --line: #242c37; --line-2: #354050; --accent: #6ea8f0; --accent-ink: #0b1320; --accent-wash: #18263b;
-  --s1: #3987e5; --s1-soft: rgba(57, 135, 229, .4); --s2: #d95926; --s3: #199e70;
+  --s1: #3987e5; --s1-soft: rgba(57, 135, 229, .4); --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767; --s1-mid: rgba(57, 135, 229, .62);
   --good-ink: #2fbf2f; --crit-ink: #ec7272; --shadow: none;
   color-scheme: dark;
 }
@@ -170,39 +171,76 @@ details .scroll { margin-top: 10px; }
 @media (prefers-reduced-motion: no-preference) { .fill, .stack > div { transition: width .3s ease; } }
 </style>
 
+
+<style>
+.alerts { display: grid; gap: 8px; }
+.alert { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.alert .dot { margin-top: 6px; }
+.alert b { font-weight: 600; }
+.alert .msg { font-size: 14px; }
+.alert .msg small { display: block; color: var(--ink-2); font-size: 12px; }
+.alert .tag { font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.data-table td, .data-table th { padding: 7px 8px; }
+.data-table tbody tr:hover { background: var(--bg); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.filters label { font-size: 13px; color: var(--ink-2); }
+.edit input[type="month"] { min-width: 130px; }
+.edit .w-note { min-width: 220px; }
+.edit .w-xs { min-width: 56px; }
+.edit input[type="checkbox"] { width: auto; }
+.btn.sm { padding: 4px 9px; font-size: 12px; }
+.est { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); border: 1px dashed var(--line-2); border-radius: 4px; padding: 0 5px; margin-left: 6px; }
+.grp td { font-weight: 600; }
+.sub-row td { color: var(--ink-2); font-size: 12px; }
+</style>
+
 <div class="wrap">
   <header class="top">
     <div style="display:grid;gap:6px">
-      <p class="eyebrow">Placements · payroll · cash</p>
+      <p class="eyebrow">ASM Virtual · invoices · payroll · cash</p>
       <h1>Income &amp; Reserve Planner</h1>
     </div>
     <div class="meta">
-      <label for="year">Year</label>
-      <select id="year"></select>
       <span id="asof" class="num"></span>
       <span id="modeNote" class="chip" hidden></span>
     </div>
   </header>
 
-  <div id="banner" hidden></div>
-  <div id="loading" class="empty"><h2>Loading your figures…</h2><p class="sub">Placements, expenses and settings appear here as soon as they load.</p></div>
+  <div id="loading" class="empty"><h2>Loading your figures…</h2><p class="sub">Invoices, clients, staff and payroll appear here as soon as they load.</p></div>
   <div id="emptyState" class="empty" hidden>
-    <h2>No placements yet</h2>
-    <p class="sub">Add each hire you've placed with a client in <b>Your records</b> below (or paste a spreadsheet in the Import tab). The forecast, staffing history, payment delays and reserve fill in from there.</p>
-    <div class="row-actions"><button class="btn primary" id="loadExamples" type="button">Load example data</button><a class="btn" href="#records">Add my first placement</a></div>
+    <h2>No invoices yet</h2>
+    <p class="sub">Add your clients and invoices in <b>Your records</b> below. The forecast, who-owes-you list, staff counts and reserve fill in from there.</p>
+    <a class="btn primary" href="#records">Add my first invoice</a>
   </div>
 
   <div id="dash" hidden style="display:grid;gap:20px">
     <section class="kpis" id="kpis" aria-label="Headline numbers"></section>
 
+    <section class="card" aria-labelledby="h-attn">
+      <div class="card-head">
+        <h2 id="h-attn">Needs your attention</h2>
+        <p>Invoices that look missing, and staff working for clients with nothing billed. Checked against each client's billing schedule.</p>
+      </div>
+      <div class="alerts" id="alerts"></div>
+    </section>
+
+    <section class="card" aria-labelledby="h-owed">
+      <div class="card-head">
+        <h2 id="h-owed">Who owes you</h2>
+        <p id="owedNote"></p>
+      </div>
+      <div class="scroll"><table class="data-table" id="owedTable"></table></div>
+    </section>
+
     <section class="card" aria-labelledby="h-income">
       <div class="card-head">
-        <h2 id="h-income">Income by month</h2>
+        <h2 id="h-income">Income by month worked</h2>
         <p id="incomeNote"></p>
       </div>
       <div class="legend">
-        <span><i class="sw" style="background:var(--s1)"></i>Client billings (earned)</span>
-        <span><i class="sw" style="background:var(--s1-soft);outline:1px dashed var(--s1);outline-offset:-1px"></i>Client billings (forecast)</span>
+        <span><i class="sw" style="background:var(--s1)"></i>Paid</span>
+        <span><i class="sw" style="background:var(--s1-mid)"></i>Invoiced, not paid</span>
+        <span><i class="sw" style="background:var(--s1-soft);outline:1px dashed var(--s1);outline-offset:-1px"></i>Still to bill (forecast)</span>
         <span><i class="sw line" style="background:var(--s2)"></i>Staff pay + expenses</span>
       </div>
       <div class="chart" id="chartMonthly"></div>
@@ -212,95 +250,99 @@ details .scroll { margin-top: 10px; }
       </details>
     </section>
 
+    <section class="card" aria-labelledby="h-clients">
+      <div class="card-head">
+        <h2 id="h-clients">Clients: what they pay and how late</h2>
+        <p>"Pays vs due" compares payment to the invoice due date. "Cash gap" is how long after your staff payday the money arrives, which is what you have to cover.</p>
+      </div>
+      <div class="scroll"><table class="data-table" id="clientTable"></table></div>
+      <div class="legend">
+        <span class="pill"><i class="dot st-good"></i>Pays before payday</span>
+        <span class="pill"><i class="dot st-warn"></i>1–14 days after</span>
+        <span class="pill"><i class="dot st-serious"></i>15–30 days after</span>
+        <span class="pill"><i class="dot st-crit"></i>Over 30 days after</span>
+      </div>
+    </section>
+
     <div class="two">
       <section class="card" aria-labelledby="h-staff">
         <div class="card-head">
-          <h2 id="h-staff">Hires &amp; let go by year</h2>
-          <p>Counts placements that started and ended each year. The lighter top of the current year is what the forecast expects before December 31.</p>
+          <h2 id="h-staff">Hires &amp; let go</h2>
+          <p id="staffNote"></p>
         </div>
         <div class="legend">
           <span><i class="sw" style="background:var(--s1)"></i>Hired</span>
           <span><i class="sw" style="background:var(--s2)"></i>Let go</span>
-          <span><i class="sw" style="background:var(--line-2)"></i>Lighter = expected</span>
         </div>
         <div class="chart" id="chartStaff"></div>
         <div class="minis" id="staffMinis"></div>
       </section>
 
-      <section class="card" aria-labelledby="h-pay">
+      <section class="card" aria-labelledby="h-reserve" id="reserve">
         <div class="card-head">
-          <h2 id="h-pay">What clients pay &amp; how late</h2>
-          <p>Active placements only. "Days late" is how long after you pay your staff the client's money actually arrives.</p>
+          <h2 id="h-reserve">Payroll reserve</h2>
+          <p>Cash to keep aside so staff and bills get paid on time even when clients pay late.</p>
         </div>
-        <div class="minis" id="payMinis"></div>
-        <h3>Days late by client</h3>
-        <div class="hbars" id="delayBars"></div>
-        <div class="legend">
-          <span class="pill"><i class="dot st-good"></i>On time</span>
-          <span class="pill"><i class="dot st-warn"></i>1–14 days</span>
-          <span class="pill"><i class="dot st-serious"></i>15–30 days</span>
-          <span class="pill"><i class="dot st-crit"></i>Over 30 days</span>
+        <div class="reserve-total"><span class="big num" id="resTotal"></span><span class="sub" id="resSub"></span></div>
+        <div class="stack" id="resStack" aria-hidden="true"></div>
+        <div class="parts" id="resParts"></div>
+        <div class="plan" id="resPlan"></div>
+        <div class="fields">
+          <div class="field"><label for="set-reserveNow">Already set aside</label><input type="number" id="set-reserveNow" min="0" step="100" data-set="reserveNow"><span class="hint">Cash kept for payroll (not your tax reserve)</span></div>
+          <div class="field"><label for="set-bufferMonths">Overhead cushion (months)</label><input type="number" id="set-bufferMonths" min="0" step="0.5" data-set="bufferMonths"><span class="hint">Expenses plus your internal team</span></div>
+          <div class="field"><span class="check"><input type="checkbox" id="set-shock" data-set="shock"><label for="set-shock">Cover a full month if my biggest client doesn't pay</label></span></div>
         </div>
       </section>
     </div>
-
-    <section class="card" aria-labelledby="h-reserve" id="reserve">
-      <div class="card-head">
-        <h2 id="h-reserve">Payroll reserve</h2>
-        <p>Cash to keep aside so your staff and bills get paid on time even when clients pay late.</p>
-      </div>
-      <div class="reserve-total"><span class="big num" id="resTotal"></span><span class="sub" id="resSub"></span></div>
-      <div class="stack" id="resStack" aria-hidden="true"></div>
-      <div class="parts" id="resParts"></div>
-      <div class="plan" id="resPlan"></div>
-      <div class="fields">
-        <div class="field"><label for="set-reserveNow">Already set aside</label><input type="number" id="set-reserveNow" min="0" step="100" data-set="reserveNow"><span class="hint">Cash you've already put in reserve</span></div>
-        <div class="field"><label for="set-bufferMonths">Expense cushion (months)</label><input type="number" id="set-bufferMonths" min="0" step="0.5" data-set="bufferMonths"><span class="hint">Months of business expenses to cover</span></div>
-        <div class="field"><label for="set-lead">Pay staff before invoices are due (days)</label><input type="number" id="set-lead" min="0" step="1" data-set="lead"><span class="hint">0 if staff payday and client due date match</span></div>
-        <div class="field"><span class="check"><input type="checkbox" id="set-shock" data-set="shock"><label for="set-shock">Cover a full month if my biggest client doesn't pay</label></span></div>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="h-assume">
-      <div class="card-head">
-        <h2 id="h-assume">Forecast assumptions</h2>
-        <p>Worked out from your last 12 months of placements. Type a number to try a different scenario; clear the box to go back to the calculated value.</p>
-      </div>
-      <div class="fields">
-        <div class="field"><label for="set-hires">New hires per month</label><input type="number" id="set-hires" min="0" step="0.1" data-set="hires"><span class="hint" id="hint-hires"></span></div>
-        <div class="field"><label for="set-churn">Monthly let-go rate (%)</label><input type="number" id="set-churn" min="0" max="100" step="0.1" data-set="churn"><span class="hint" id="hint-churn"></span></div>
-        <div class="field"><label for="set-newBill">New client pays per month</label><input type="number" id="set-newBill" min="0" step="50" data-set="newBill"><span class="hint" id="hint-newBill"></span></div>
-        <div class="field"><label for="set-newPay">New staff pay per month</label><input type="number" id="set-newPay" min="0" step="50" data-set="newPay"><span class="hint" id="hint-newPay"></span></div>
-        <div class="field"><label for="set-currency">Currency symbol</label><input type="text" id="set-currency" maxlength="4" data-set="currency"><span class="hint">Shown on every amount</span></div>
-      </div>
-    </section>
   </div>
 
   <section class="card" id="records" aria-labelledby="h-records">
     <div class="card-head">
       <h2 id="h-records">Your records</h2>
-      <p>Every change saves as soon as you leave the box. Leave <b>End</b> blank while someone is still placed.</p>
+      <p>Every change saves when you leave the box. Leave <b>Paid</b> empty until the money arrives. Rows marked <span class="est">Est.</span> are my estimates: replace them with the real amounts.</p>
     </div>
     <div class="tabs" role="tablist">
-      <button class="tab" role="tab" id="tab-placements" aria-selected="true" aria-controls="panel-placements" type="button">Placements</button>
+      <button class="tab" role="tab" id="tab-invoices" aria-selected="true" aria-controls="panel-invoices" type="button">Invoices</button>
+      <button class="tab" role="tab" id="tab-clients" aria-selected="false" aria-controls="panel-clients" type="button">Clients</button>
+      <button class="tab" role="tab" id="tab-staff" aria-selected="false" aria-controls="panel-staff" type="button">Staff</button>
+      <button class="tab" role="tab" id="tab-payroll" aria-selected="false" aria-controls="panel-payroll" type="button">Payroll paid</button>
       <button class="tab" role="tab" id="tab-expenses" aria-selected="false" aria-controls="panel-expenses" type="button">Expenses</button>
-      <button class="tab" role="tab" id="tab-import" aria-selected="false" aria-controls="panel-import" type="button">Import</button>
+      <button class="tab" role="tab" id="tab-settings" aria-selected="false" aria-controls="panel-settings" type="button">Settings</button>
     </div>
-    <div id="panel-placements" role="tabpanel" aria-labelledby="tab-placements" style="display:grid;gap:12px">
-      <div class="scroll"><table class="edit" id="tblPlacements"></table></div>
-      <div class="row-actions"><button class="btn primary" id="addPlacement" type="button">Add placement</button><span class="muted" id="placeCount"></span></div>
+    <div id="panel-invoices" role="tabpanel" aria-labelledby="tab-invoices" style="display:grid;gap:12px">
+      <div class="filters">
+        <label for="f-status">Show</label>
+        <select id="f-status"><option value="recent">Unpaid + last 3 months</option><option value="all">All invoices</option><option value="unpaid">Not paid yet</option><option value="est">Estimates only</option></select>
+        <label for="f-client">Client</label>
+        <select id="f-client"><option value="">All clients</option></select>
+        <span class="muted" id="invCount"></span>
+      </div>
+      <div class="scroll"><table class="edit" id="tbl-invoices"></table></div>
+      <div class="row-actions"><button class="btn primary" data-add="invoices" type="button">Add invoice</button></div>
+    </div>
+    <div id="panel-clients" role="tabpanel" aria-labelledby="tab-clients" hidden style="display:grid;gap:12px">
+      <p class="muted">Billing: <b>Prebilled</b> clients are invoiced before the month starts; <b>After work</b> clients after it ends. <b>Group</b> combines sister accounts of one client so staff cost lines up with billing. <b>Forecast /mo</b> overrides the 3-month average.</p>
+      <div class="scroll"><table class="edit" id="tbl-clients"></table></div>
+      <div class="row-actions"><button class="btn primary" data-add="clients" type="button">Add client</button></div>
+    </div>
+    <div id="panel-staff" role="tabpanel" aria-labelledby="tab-staff" hidden style="display:grid;gap:12px">
+      <p class="muted">Hours are per month. <b>Monthly fixed</b> is for retainers. <b>Started</b> / <b>Left</b> drive the hires and let-go counts; leave Left empty while someone is working.</p>
+      <div class="scroll"><table class="edit" id="tbl-staff"></table></div>
+      <div class="row-actions"><button class="btn primary" data-add="staff" type="button">Add staff member</button></div>
+    </div>
+    <div id="panel-payroll" role="tabpanel" aria-labelledby="tab-payroll" hidden style="display:grid;gap:12px">
+      <p class="muted">What actually went out to staff each month. Months without a row use the staff list's monthly cost.</p>
+      <div class="scroll"><table class="edit" id="tbl-payroll"></table></div>
+      <div class="row-actions"><button class="btn primary" data-add="payroll" type="button">Add month</button></div>
     </div>
     <div id="panel-expenses" role="tabpanel" aria-labelledby="tab-expenses" hidden style="display:grid;gap:12px">
-      <div class="scroll"><table class="edit" id="tblExpenses"></table></div>
-      <div class="row-actions"><button class="btn primary" id="addExpense" type="button">Add expense</button><span class="muted">Monthly costs start on their date. Yearly costs repeat in that month. One-off costs hit once.</span></div>
+      <div class="scroll"><table class="edit" id="tbl-expenses"></table></div>
+      <div class="row-actions"><button class="btn primary" data-add="expenses" type="button">Add expense</button><span class="muted">Monthly costs start on their date. Yearly costs repeat in that month. One-off costs hit once.</span></div>
     </div>
-    <div id="panel-import" role="tabpanel" aria-labelledby="tab-import" hidden style="display:grid;gap:10px">
-      <p class="sub">Paste placements from a spreadsheet (CSV or tab-separated) with these columns in this order, header row optional:</p>
-      <p><code>client, role, start, end, client pays, staff pay, days late</code></p>
-      <p class="muted">Dates as 2026-03-15 or 3/15/2026. Leave end empty for anyone still placed. Amounts are monthly.</p>
-      <label for="csvIn" class="muted">Paste rows here</label>
-      <textarea id="csvIn" placeholder="Acme Dental, Executive assistant, 2025-01-06, , 1500, 850, 10"></textarea>
-      <div class="row-actions"><button class="btn primary" id="importBtn" type="button">Import placements</button><span id="importMsg" class="muted"></span></div>
+    <div id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" hidden style="display:grid;gap:12px">
+      <div class="fields">
+        <div class="field"><label for="set-currency">Currency symbol</label><input type="text" id="set-currency" maxlength="4" data-set="currency"></div>
+      </div>
     </div>
   </section>
 </div>
@@ -315,58 +357,45 @@ details .scroll { margin-top: 10px; }
   const T = new Date();
   const tY = T.getFullYear(), tM = T.getMonth(), tIdx = tY * 12 + tM;
   const todayMs = Date.UTC(tY, tM, T.getDate());
+  const todayIso = tY + "-" + String(tM + 1).padStart(2, "0") + "-" + String(T.getDate()).padStart(2, "0");
   const $ = (id) => document.getElementById(id);
-
-  const S = { placements: [], expenses: [], settings: {}, loaded: {}, mode: "loading", canWrite: true, year: tY, tab: "placements" };
+  const COLLS = ["invoices", "clients", "staff", "payroll", "expenses", "settings"];
+  // Stored names. Expenses and settings moved to fresh locations when the dashboard switched to invoices.
+  const CNAME = { expenses: "costs", settings: "settings" };
+  const SETTINGS_ID = "planner";
+  const cn = (c) => CNAME[c] || c;
+  const S = { invoices: [], clients: [], staff: [], payroll: [], expenses: [], settings: {}, loaded: {}, mode: "loading", canWrite: true };
 
   /* ---------- helpers ---------- */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
-  function parseD(s) {
-    if (!s || typeof s !== "string") return null;
-    const m = s.match(/^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?$/);
-    if (!m) return null;
-    return Date.UTC(+m[1], +m[2] - 1, +(m[3] || 1));
-  }
-  function idxOfMs(ms) { const d = new Date(ms); return d.getUTCFullYear() * 12 + d.getUTCMonth(); }
+  function parseD(s) { if (!s || typeof s !== "string") return null; const m = s.match(/^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?$/); return m ? Date.UTC(+m[1], +m[2] - 1, +(m[3] || 1)) : null; }
+  function ymIdx(s) { const m = typeof s === "string" && s.match(/^(\d{4})-(\d{1,2})/); return m ? +m[1] * 12 + (+m[2] - 1) : null; }
+  function idxYm(i) { return Math.floor(i / 12) + "-" + String(i % 12 + 1).padStart(2, "0"); }
+  function idxLabel(i, withYear) { return MONTHS[i % 12] + (withYear || Math.floor(i / 12) !== tY ? " " + Math.floor(i / 12) : ""); }
   function num(v) { const n = parseFloat(v); return isFinite(n) ? n : 0; }
   function numOrNull(v) { if (v === "" || v == null) return null; const n = parseFloat(v); return isFinite(n) ? n : null; }
   function sum(a) { return a.reduce((x, y) => x + y, 0); }
-  function avg(a) { return a.length ? sum(a) / a.length : 0; }
+  function avg(a) { return a.length ? sum(a) / a.length : null; }
   function cur() { return (S.settings && S.settings.currency) || "$"; }
-  function money(n, opts) {
-    const neg = n < 0; const v = Math.abs(n);
-    const s = v.toLocaleString(undefined, { maximumFractionDigits: 0 });
-    return (neg ? "−" : "") + cur() + s;
-  }
+  function money(n) { const neg = n < 0; return (neg ? "−" : "") + cur() + Math.abs(n).toLocaleString(undefined, { maximumFractionDigits: 0 }); }
   function compact(n) {
-    const v = Math.abs(n), sgn = n < 0 ? "−" : "";
-    if (v >= 1e6) return sgn + cur() + (v / 1e6).toFixed(v >= 1e7 ? 0 : 1).replace(/\.0$/, "") + "M";
-    if (v >= 1e3) return sgn + cur() + (v / 1e3).toFixed(v >= 1e4 ? 0 : 1).replace(/\.0$/, "") + "k";
-    return sgn + cur() + Math.round(v);
+    const v = Math.abs(n), sg = n < 0 ? "−" : "";
+    if (v >= 1e6) return sg + cur() + (v / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+    if (v >= 1e3) return sg + cur() + (v / 1e3).toFixed(v >= 1e4 ? 0 : 1).replace(/\.0$/, "") + "k";
+    return sg + cur() + Math.round(v);
   }
-  function niceStep(raw) {
-    if (raw <= 0) return 1;
-    const p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p;
-    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p;
-  }
-  function plural(n, w) { return n + " " + w + (Math.round(n) === 1 ? "" : "s"); }
-  function delayStatus(d) {
-    if (d <= 0) return ["good", "On time"];
-    if (d <= 14) return ["warn", "1–14 days"];
-    if (d <= 30) return ["serious", "15–30 days"];
-    return ["crit", "Over 30 days"];
-  }
-  function newId(prefix) { return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function niceStep(raw) { if (raw <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
+  function plural(n, w) { if (Math.round(n) === 1) return n + " " + w; return n + " " + (w === "person" ? "people" : w === "day" ? "days" : w + "s"); }
+  function fmtDate(s) { const d = parseD(s); return d == null ? "—" : new Date(d).toLocaleDateString(undefined, { month: "short", day: "numeric", timeZone: "UTC" }); }
+  function gapStatus(d) { if (d == null) return ["", "No history"]; if (d <= 0) return ["good", "Before payday"]; if (d <= 14) return ["warn", "1–14 days"]; if (d <= 30) return ["serious", "15–30 days"]; return ["crit", "Over 30 days"]; }
+  function key(s) { return String(s || "").trim().toLowerCase(); }
   let toastTimer;
-  function toast(msg) {
-    const t = $("toast"); t.textContent = msg; t.hidden = false;
-    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 4200);
-  }
+  function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 4200); }
 
-  /* ---------- storage: shared db when published, this browser otherwise ---------- */
-  const LS_KEY = "income-reserve-planner-v1";
+  /* ---------- storage: private db when published, this browser otherwise ---------- */
+  const LS_KEY = "income-reserve-planner-v2";
   const chains = {};
-  function queue(key, fn) { const p = (chains[key] || Promise.resolve()).then(fn, fn); chains[key] = p.catch(() => {}); return p; }
+  function queue(k, fn) { const p = (chains[k] || Promise.resolve()).then(fn, fn); chains[k] = p.catch(() => {}); return p; }
   const store = {
     db: null,
     async init() {
@@ -374,45 +403,37 @@ details .scroll { margin-top: 10px; }
       try { if (window.claude && typeof window.claude.use === "function") db = await window.claude.use("db"); } catch (e) { db = null; }
       if (db) {
         this.db = db; S.mode = "db";
-        try {
-          const u = await window.claude.use("user");
-          if (u) { const ok = await u.canEdit(); S.canWrite = ok !== false; }
-        } catch (e) { /* keep inputs; a refused write decides */ }
-        ["placements", "expenses", "settings"].forEach((c) => {
-          db.collection(c).onSnapshot((snap) => {
+        try { const u = await window.claude.use("user"); if (u) S.canWrite = (await u.canEdit()) !== false; } catch (e) {}
+        COLLS.forEach((c) => {
+          db.collection(cn(c)).onSnapshot((snap) => {
             const rows = snap.docs.map((d) => Object.assign({}, d.data(), { id: d.id }));
-            if (c === "settings") S.settings = rows.find((r) => r.id === "main") || {};
-            else S[c] = rows;
-            S.loaded[c] = true;
-            render();
-          }, (err) => { toast("Live updates stopped (" + err.code + "). Reload the page to reconnect."); });
+            if (c === "settings") S.settings = rows.find((r) => r.id === SETTINGS_ID) || {}; else S[c] = rows;
+            S.loaded[c] = true; scheduleRender();
+          }, (err) => toast("Live updates stopped (" + err.code + "). Reload the page to reconnect."));
         });
       } else {
         S.mode = "local";
         let saved = null;
-        try { saved = JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch (e) { saved = null; }
-        if (saved) { S.placements = saved.placements || []; S.expenses = saved.expenses || []; S.settings = saved.settings || {}; }
-        S.loaded = { placements: true, expenses: true, settings: true };
+        try { saved = JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch (e) {}
+        if (saved) COLLS.forEach((c) => { if (saved[c]) S[c] = saved[c]; });
+        COLLS.forEach((c) => (S.loaded[c] = true));
         render();
       }
     },
-    saveLocal() {
-      try { localStorage.setItem(LS_KEY, JSON.stringify({ placements: S.placements, expenses: S.expenses, settings: S.settings })); }
-      catch (e) { toast("This browser won't keep changes after you close the page."); }
-    },
-    newId(c) { return this.db ? this.db.collection(c).doc().id : newId(c[0]); },
+    saveLocal() { try { const o = {}; COLLS.forEach((c) => (o[c] = S[c])); localStorage.setItem(LS_KEY, JSON.stringify(o)); } catch (e) { toast("This browser won't keep changes after you close the page."); } },
+    newId(c) { return this.db ? this.db.collection(cn(c)).doc().id : c[0] + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); },
     put(c, id, data) {
       const body = Object.assign({}, data); delete body.id;
       if (!this.db) {
-        if (c === "settings") S.settings = Object.assign({ id: "main" }, body);
+        if (c === "settings") S.settings = Object.assign({ id: SETTINGS_ID }, body);
         else { const i = S[c].findIndex((r) => r.id === id); const row = Object.assign({}, body, { id }); if (i >= 0) S[c][i] = row; else S[c].push(row); }
         this.saveLocal(); render(); return Promise.resolve();
       }
-      return queue(c + "/" + id, () => this.db.collection(c).doc(id).set(body)).catch((e) => this.fail(e));
+      return queue(c + "/" + id, () => this.db.collection(cn(c)).doc(id).set(body)).catch((e) => this.fail(e));
     },
     remove(c, id) {
       if (!this.db) { S[c] = S[c].filter((r) => r.id !== id); this.saveLocal(); render(); return Promise.resolve(); }
-      return queue(c + "/" + id, () => this.db.collection(c).doc(id).delete()).catch((e) => this.fail(e));
+      return queue(c + "/" + id, () => this.db.collection(cn(c)).doc(id).delete()).catch((e) => this.fail(e));
     },
     fail(e) {
       const code = e && e.code;
@@ -421,155 +442,179 @@ details .scroll { margin-top: 10px; }
       else toast("Couldn't save that change. Check your connection and try again.");
     }
   };
+  let rq = false;
+  function scheduleRender() { if (rq) return; rq = true; requestAnimationFrame(() => { rq = false; render(); }); }
 
   function cfg() {
     const s = S.settings || {};
-    return {
-      reserveNow: num(s.reserveNow),
-      bufferMonths: s.bufferMonths == null || s.bufferMonths === "" ? 1 : num(s.bufferMonths),
-      lead: num(s.lead),
-      shock: s.shock !== false,
-      hires: numOrNull(s.hires), churn: numOrNull(s.churn), newBill: numOrNull(s.newBill), newPay: numOrNull(s.newPay)
-    };
+    return { reserveNow: num(s.reserveNow), bufferMonths: s.bufferMonths == null || s.bufferMonths === "" ? 1 : num(s.bufferMonths), shock: s.shock !== false };
   }
 
   /* ---------- the model ---------- */
-  // Share of calendar month `idx` (year*12+month) that a placement was active. End date is the last day worked.
-  function frac(p, idx) {
-    const s = parseD(p.start); if (s == null) return 0;
-    const e = parseD(p.end);
-    const y = Math.floor(idx / 12), m = idx % 12;
-    const ms = Date.UTC(y, m, 1), me = Date.UTC(y, m + 1, 1);
-    const a = Math.max(ms, s), b = Math.min(me, e != null ? e + DAY : Infinity);
-    return b > a ? (b - a) / (me - ms) : 0;
-  }
-  function activeOn(p, ms) { const s = parseD(p.start), e = parseD(p.end); return s != null && s <= ms && (e == null || e >= ms); }
+  function staffCost(s) { return s.fixed != null && s.fixed !== "" ? num(s.fixed) : num(s.rate) * num(s.hours); }
+  function isActiveStaff(s) { const e = ymIdx(s.end); return e == null || e >= tIdx; }
   function expenseIn(x, idx) {
     const amt = num(x.amount); if (!amt) return 0;
-    const d = parseD(x.date); const di = d == null ? null : idxOfMs(d);
+    const di = ymIdx(x.date);
     if (x.freq === "yearly") { if (di != null && idx < di) return 0; return (idx % 12) === (di == null ? 0 : di % 12) ? amt : 0; }
     if (x.freq === "once") return di === idx ? amt : 0;
-    if (di != null && idx < di) return 0;
-    return amt;
+    return di != null && idx < di ? 0 : amt;
+  }
+  function invMonths(inv) { const s = ymIdx(inv.month); if (s == null) return []; const n = Math.max(1, Math.round(num(inv.months) || 1)); return Array.from({ length: n }, (_, k) => s + k); }
+  function staffPayMs(inv) {
+    const s = ymIdx(inv.month); if (s == null) return null;
+    const y = Math.floor(s / 12), m = s % 12;
+    if (inv.half === "1") return Date.UTC(y, m, 15);
+    if (inv.half === "2") return Date.UTC(y, m + 1, 0);
+    return Date.UTC(y, m, 22);
   }
 
-  function compute(Y) {
+  function compute() {
     const c = cfg();
-    const P = S.placements.filter((p) => parseD(p.start) != null);
-    const startIdx = P.map((p) => idxOfMs(parseD(p.start)));
-    const minIdx = startIdx.length ? Math.min.apply(null, startIdx) : tIdx;
+    const clients = S.clients.slice();
+    const cmap = {}; clients.forEach((cl) => (cmap[key(cl.name)] = cl));
+    const groupOf = (name) => { const cl = cmap[key(name)]; return (cl && cl.group) || (cl ? cl.name : name) || "Unassigned"; };
+    const byClient = {};
+    S.invoices.forEach((inv) => { const k = key(inv.client); (byClient[k] = byClient[k] || []).push(inv); });
 
-    // History window: last 12 full months (shorter if records don't go back that far)
-    const win = Math.max(1, Math.min(12, tIdx - minIdx));
-    const lo = tIdx - win;
-    const hiredW = P.filter((p) => { const i = idxOfMs(parseD(p.start)); return i >= lo && i < tIdx; });
-    const endedW = P.filter((p) => { const e = parseD(p.end); if (e == null) return false; const i = idxOfMs(e); return i >= lo && i < tIdx; }).length;
-    let actSum = 0; for (let i = lo; i < tIdx; i++) actSum += sum(P.map((p) => frac(p, i) > 0 ? 1 : 0));
-    const avgActive = actSum / win;
-    const auto = {
-      hires: hiredW.length / win,
-      churn: avgActive > 0 ? Math.min(0.5, endedW / win / avgActive) : 0,
-      bill: avg((hiredW.length ? hiredW : P).map((p) => num(p.bill))),
-      pay: avg((hiredW.length ? hiredW : P).map((p) => num(p.pay))),
-      win
+    const covers = (k, idx, semi) => {
+      const list = (byClient[k] || []).filter((i) => invMonths(i).includes(idx));
+      if (!semi) return list.length ? 2 : 0;
+      if (list.some((i) => !i.half)) return 2;
+      return (list.some((i) => i.half === "1") ? 1 : 0) + (list.some((i) => i.half === "2") ? 1 : 0);
     };
-    const h = c.hires != null ? Math.max(0, c.hires) : auto.hires;
-    const ch = c.churn != null ? Math.min(1, Math.max(0, c.churn / 100)) : auto.churn;
-    const nb = c.newBill != null ? c.newBill : auto.bill;
-    const np = c.newPay != null ? c.newPay : auto.pay;
+    const billedIn = (k, idx) => sum((byClient[k] || []).map((i) => invMonths(i).includes(idx) ? num(i.amount) / invMonths(i).length : 0));
+    const billable = (cl) => cl.billing === "pre" || cl.billing === "after";
+    const lastExpected = (cl) => cl.billing === "pre" ? tIdx : tIdx - 1;
+    const runRate = (cl) => {
+      const f = numOrNull(cl.forecast); if (f != null) return f;
+      const k = key(cl.name), semi = cl.cadence === "semi";
+      const full = [];
+      for (let i = lastExpected(cl) + (cl.billing === "pre" ? 1 : 0); i >= tIdx - 14 && full.length < 3; i--) if (covers(k, i, semi) === 2) full.push(billedIn(k, i));
+      return avg(full) || 0;
+    };
 
-    // Forecast from the current month forward
-    const endIdx = Math.max(Y, tY) * 12 + 11;
-    const fc = {};
-    let nFull = 0, prevOpen = 0;
-    for (let i = tIdx; i <= endIdx; i++) {
-      const k = i - tIdx, surv = Math.pow(1 - ch, k);
-      let rev = 0, pay = 0, open = 0, planned = 0;
-      for (const p of P) {
-        const f = frac(p, i); if (!f) continue;
-        const w = p.end ? f : f * surv;
-        rev += w * num(p.bill); pay += w * num(p.pay);
-        if (p.end) planned += 1; else open += surv;
+    // staff cost by client and group
+    const activeStaff = S.staff.filter(isActiveStaff);
+    const costByClient = {};
+    activeStaff.forEach((s) => { const k = key(s.client) || "__none"; costByClient[k] = (costByClient[k] || 0) + staffCost(s); });
+    const totalStaff = sum(activeStaff.map(staffCost));
+
+    // attention list
+    const alerts = [];
+    clients.forEach((cl) => {
+      const k = key(cl.name), invs = byClient[k] || [], cost = costByClient[k] || 0;
+      if (cl.billing === "internal" || cl.billing === "none") return;
+      if (cl.active === false) {
+        if (cost > 0) {
+          const last = invs.map((i) => ymIdx(i.month)).filter((x) => x != null).sort((a, b) => b - a)[0];
+          alerts.push({ sev: "crit", client: cl.name, title: cl.name + ": staff still logging hours", sub: money(cost) + "/month of staff time, but the client is marked inactive" + (last != null ? " and the last invoice was for " + idxLabel(last, true) : "") + ". Bill the hours or move the staff.", tag: "Not billed" });
+        }
+        return;
       }
-      let nW = 0;
-      if (k >= 1) { nW = nFull * (1 - ch) + 0.5 * h; nFull = nFull * (1 - ch) + h; }
-      rev += nW * nb; pay += nW * np;
-      open += nFull;
-      fc[i] = { rev, pay, head: open + planned, hires: k >= 1 ? h : 0, churn: k >= 1 ? ch * prevOpen : 0 };
-      prevOpen = open;
-    }
+      if (!invs.length) {
+        if (cost > 0) alerts.push({ sev: "crit", client: cl.name, title: cl.name + ": staff working, nothing billed", sub: money(cost) + "/month in staff pay, but no invoice or payment is on record" + (cl.via ? " (expected through " + cl.via + ")" : "") + ".", tag: "Not billed" });
+        else alerts.push({ sev: "info", client: cl.name, title: cl.name + ": no invoices on record yet", sub: cl.note || "Add their invoices so they count in the forecast.", tag: "Set up" });
+        return;
+      }
+      const semi = cl.cadence === "semi";
+      const first = Math.max(tY * 12, Math.min.apply(null, invs.map((i) => ymIdx(i.month)).filter((x) => x != null)));
+      for (let i = first; i <= lastExpected(cl); i++) {
+        const cv = covers(k, i, semi); if (cv === 2) continue;
+        const sendNow = cl.billing === "after" && i === tIdx - 1;
+        const what = semi && cv === 1 ? MONTHS[i % 12] + " 16–" + new Date(Date.UTC(Math.floor(i / 12), i % 12 + 1, 0)).getUTCDate() : idxLabel(i);
+        const est = Math.round(runRate(cl) * (semi && cv === 1 ? 0.5 : 1));
+        alerts.push({ sev: sendNow ? "warn" : "crit", client: cl.name, title: cl.name + ": " + (sendNow ? "send the " + what + " invoice" : "no invoice on record for " + what),
+          sub: (sendNow ? (cl.billing === "after" ? "Billed after the work, on the " + (cl.day || 30) + "th. " : "") : "Their usual bill is about " + money(est) + ". If you sent it, add it to Invoices; if not, it may have been missed. ") + (sendNow ? "Usually about " + money(est) + "." : ""),
+          tag: sendNow ? "Send now" : "Missing?" });
+      }
+    });
+    const noClient = activeStaff.filter((s) => !key(s.client));
+    if (noClient.length) alerts.push({ sev: "info", title: plural(noClient.length, "person") + " paid recently with no client assigned", sub: noClient.map((s) => s.name).join(", ") + ". Set their client in the Staff tab so costs land in the right place.", tag: "Tidy up" });
+    const unassignedInv = S.invoices.filter((i) => key(i.client) === "unassigned (relay)");
+    if (unassignedInv.length) alerts.push({ sev: "info", title: plural(unassignedInv.length, "Relay deposit") + " without a client", sub: "Total " + money(sum(unassignedInv.map((i) => num(i.amount)))) + ". Change the client on these invoices.", tag: "Tidy up" });
+    const sevRank = { crit: 0, warn: 1, info: 2 };
+    alerts.sort((a, b) => sevRank[a.sev] - sevRank[b.sev]);
 
+    // owed
+    const owed = S.invoices.filter((i) => !i.paid).map((i) => {
+      const due = parseD(i.due); const days = due == null ? null : Math.round((todayMs - due) / DAY);
+      return Object.assign({}, i, { days });
+    }).sort((a, b) => (b.days == null ? -1e9 : b.days) - (a.days == null ? -1e9 : a.days));
+
+    // per group stats
+    const groups = {};
+    const G = (name) => groups[name] || (groups[name] = { name, members: [], billed: 0, staff: 0, owed: 0, vsDue: [], gap: [], active: false, billing: new Set(), paidAny: false });
+    clients.forEach((cl) => { if (cl.billing === "none") return; const g = G(groupOf(cl.name)); g.members.push(cl); if (cl.active !== false) g.active = true; g.billing.add(cl.billing); if (cl.active !== false && billable(cl)) g.billed += runRate(cl); });
+    Object.keys(costByClient).forEach((k) => { if (k === "__none") return; const g = G(groupOf(cmap[k] ? cmap[k].name : k)); g.staff += costByClient[k]; });
+    const paidInv = S.invoices.filter((i) => i.paid && parseD(i.paid) != null).sort((a, b) => parseD(b.paid) - parseD(a.paid));
+    paidInv.forEach((i) => {
+      const cl = cmap[key(i.client)]; if (cl && cl.billing === "none") return;
+      const g = G(groupOf(i.client)); g.paidAny = true;
+      if (g.gap.length < 6) { const sp = staffPayMs(i); if (sp != null) g.gap.push((parseD(i.paid) - sp) / DAY); const du = parseD(i.due); if (du != null) g.vsDue.push((parseD(i.paid) - du) / DAY); }
+    });
+    owed.forEach((i) => { G(groupOf(i.client)).owed += num(i.amount); });
+    const groupList = Object.values(groups).map((g) => Object.assign(g, { gapAvg: avg(g.gap), vsDueAvg: avg(g.vsDue) }))
+      .filter((g) => g.active || g.owed > 0 || g.staff > 0).sort((a, b) => b.billed - a.billed || b.staff - a.staff);
+
+    // income by work month (this year)
     const months = [];
     for (let m = 0; m < 12; m++) {
-      const i = Y * 12 + m; const actual = i < tIdx;
-      let rev, pay;
-      if (actual) { rev = sum(P.map((p) => frac(p, i) * num(p.bill))); pay = sum(P.map((p) => frac(p, i) * num(p.pay))); }
-      else { rev = fc[i].rev; pay = fc[i].pay; }
-      const exp = sum(S.expenses.map((x) => expenseIn(x, i)));
-      months.push({ m, i, label: MONTHS[m], actual, current: i === tIdx, rev, pay, exp, profit: rev - pay - exp });
+      const idx = tY * 12 + m;
+      let paid = 0, open = 0, fc = 0;
+      S.invoices.forEach((i) => { const ms = invMonths(i); if (!ms.includes(idx)) return; const part = num(i.amount) / ms.length; if (i.paid) paid += part; else open += part; });
+      clients.forEach((cl) => {
+        if (cl.active === false || !billable(cl)) return;
+        const k = key(cl.name), invs = byClient[k] || []; if (!invs.length) return;
+        const first = Math.min.apply(null, invs.map((i) => ymIdx(i.month)).filter((x) => x != null));
+        if (idx < Math.max(first, tY * 12)) return;
+        const cv = covers(k, idx, cl.cadence === "semi"); if (cv === 2) return;
+        fc += runRate(cl) * (cl.cadence === "semi" ? (2 - cv) / 2 : 1);
+      });
+      const pr = S.payroll.find((p) => ymIdx(p.month) === idx);
+      const pay = idx < tIdx && pr ? num(pr.amount) : idx < tIdx ? totalStaff : totalStaff;
+      const exp = sum(S.expenses.map((x) => expenseIn(x, idx)));
+      months.push({ m, idx, label: MONTHS[m], paid, open, fc, inc: paid + open + fc, pay, payActual: !!(idx < tIdx && pr), exp, current: idx === tIdx });
     }
+    const collected = sum(S.invoices.filter((i) => i.paid && String(i.paid).slice(0, 4) === String(tY)).map((i) => i.received != null && i.received !== "" ? num(i.received) : num(i.amount)));
 
-    // Staffing per year
-    const years = [];
-    const y0 = Math.floor(minIdx / 12), y1 = Math.max(Y, tY);
-    for (let y = y0; y <= y1; y++) {
-      let hired = 0, letGo = 0, expHire = 0, expGo = 0;
-      for (const p of P) {
-        const s = parseD(p.start), e = parseD(p.end);
-        if (new Date(s).getUTCFullYear() === y) { if (s <= todayMs) hired++; else expHire++; }
-        if (e != null && new Date(e).getUTCFullYear() === y) { if (e < todayMs) letGo++; else expGo++; }
-      }
-      for (let m = 0; m < 12; m++) { const f = fc[y * 12 + m]; if (f) { expHire += f.hires; expGo += f.churn; } }
-      years.push({ y, hired, letGo, expHire, expGo });
-    }
+    // staff movement
+    const people = {};
+    S.staff.forEach((s) => { const k = key(s.name); const p = people[k] || (people[k] = { name: s.name, start: null, end: null, active: false }); const st = ymIdx(s.start), en = ymIdx(s.end); if (st != null) p.start = p.start == null ? st : Math.min(p.start, st); if (isActiveStaff(s)) p.active = true; else if (en != null) p.end = p.end == null ? en : Math.max(p.end, en); });
+    const plist = Object.values(people).map((p) => Object.assign(p, { end: p.active ? null : p.end }));
+    const hires = Array(12).fill(0), exits = Array(12).fill(0);
+    plist.forEach((p) => { if (p.start != null && Math.floor(p.start / 12) === tY) hires[p.start % 12]++; if (p.end != null && Math.floor(p.end / 12) === tY) exits[p.end % 12]++; });
 
-    // Who's placed right now
-    const active = P.filter((p) => activeOn(p, todayMs));
-    const basis = active.length ? active : [];
-    const billSum = sum(basis.map((p) => num(p.bill)));
-    const paySum = sum(basis.map((p) => num(p.pay)));
-    const late = basis.filter((p) => num(p.delay) > 0);
-    const wDelay = billSum ? sum(basis.map((p) => num(p.bill) * Math.max(0, num(p.delay)))) / billSum : 0;
-    const clientsMap = {};
-    for (const p of basis) {
-      const k = (p.client || "Unnamed client").trim() || "Unnamed client";
-      const o = clientsMap[k] || (clientsMap[k] = { name: k, n: 0, bill: 0, pay: 0, dBill: 0, maxDelay: 0 });
-      o.n++; o.bill += num(p.bill); o.pay += num(p.pay); o.dBill += num(p.bill) * Math.max(0, num(p.delay)); o.maxDelay = Math.max(o.maxDelay, num(p.delay));
-    }
-    const clients = Object.values(clientsMap).map((o) => Object.assign(o, { delay: o.bill ? o.dBill / o.bill : o.maxDelay }))
-      .sort((a, b) => b.delay - a.delay || b.bill - a.bill);
-
-    // Reserve
-    const floatPerMonth = sum(basis.map((p) => num(p.pay) * (Math.max(0, num(p.delay)) + c.lead) / 30));
-    const factor = paySum ? floatPerMonth / paySum : 0;
-    let peakPay = paySum, peakLabel = "today's payroll";
-    if (Y >= tY) for (const mo of months) if (!mo.actual && mo.pay > peakPay) { peakPay = mo.pay; peakLabel = mo.label + " " + Y + "'s forecast payroll"; }
-    const payrollFloat = peakPay * factor;
-    const expYear = sum(Array.from({ length: 12 }, (_, m) => sum(S.expenses.map((x) => expenseIn(x, tY * 12 + m)))));
-    const expMonthly = expYear / 12;
-    const expBuffer = expMonthly * c.bufferMonths;
-    const biggest = clients.slice().sort((a, b) => b.pay - a.pay)[0];
-    const shock = c.shock && biggest ? biggest.pay : 0;
-    const total = payrollFloat + expBuffer + shock;
+    // reserve
+    const parts = [];
+    groupList.forEach((g) => {
+      if (!g.staff || [...g.billing].every((b) => b === "internal")) return;
+      if (!g.paidAny) { parts.push({ kind: "unbilled", g, amt: g.staff, days: null }); return; }
+      if (g.gapAvg != null && g.gapAvg > 0) parts.push({ kind: "gap", g, amt: g.staff * g.gapAvg / 30.4, days: g.gapAvg });
+    });
+    parts.sort((a, b) => b.amt - a.amt);
+    const floatTotal = sum(parts.map((p) => p.amt));
+    const internal = sum(groupList.filter((g) => [...g.billing].every((b) => b === "internal")).map((g) => g.staff));
+    const expMonthly = sum(Array.from({ length: 12 }, (_, m) => sum(S.expenses.map((x) => expenseIn(x, tY * 12 + m))))) / 12;
+    const cushion = (expMonthly + internal) * c.bufferMonths;
+    const biggest = groupList.filter((g) => ![...g.billing].every((b) => b === "internal")).sort((a, b) => b.staff - a.staff)[0];
+    const shock = c.shock && biggest ? biggest.staff : 0;
+    const total = floatTotal + cushion + shock;
     const monthsLeft = 12 - tM;
-    const gap = Math.max(0, total - c.reserveNow);
-    const monthlyProfitNow = billSum - paySum - expMonthly;
+    const gapAmt = Math.max(0, total - c.reserveNow);
 
-    return {
-      c, P, auto, h, ch, nb, np, months, years, fc, active, clients, billSum, paySum, late, wDelay,
-      res: { payrollFloat, factor, peakPay, peakLabel, expBuffer, expMonthly, shock, biggest, total, gap, monthsLeft, perMonth: gap / monthsLeft, monthlyProfitNow }
-    };
+    return { c, alerts, owed, groupList, months, collected, plist, hires, exits, totalStaff, activeCount: plist.filter((p) => p.active).length,
+      res: { parts, floatTotal, cushion, expMonthly, internal, biggest, shock, total, gap: gapAmt, monthsLeft, perMonth: gapAmt / monthsLeft } };
   }
 
   /* ---------- tooltip ---------- */
   const tips = [];
-  function tipRow(sw, label, val) { return '<div class="tr"><span>' + (sw ? '<i class="sw' + (sw.line ? " line" : "") + '" style="background:' + sw.c + '"></i>' : "") + esc(label) + "</span><span>" + esc(val) + "</span></div>"; }
   const tipEl = $("tip");
+  function tipRow(sw, label, val) { return '<div class="tr"><span>' + (sw ? '<i class="sw' + (sw.line ? " line" : "") + '" style="background:' + sw.c + '"></i>' : "") + esc(label) + "</span><span>" + esc(val) + "</span></div>"; }
   document.addEventListener("pointermove", (ev) => {
     const t = ev.target.closest && ev.target.closest("[data-tip]");
     if (!t) { tipEl.hidden = true; return; }
-    tipEl.innerHTML = tips[+t.getAttribute("data-tip")] || "";
-    tipEl.hidden = false;
+    tipEl.innerHTML = tips[+t.getAttribute("data-tip")] || ""; tipEl.hidden = false;
     const r = tipEl.getBoundingClientRect();
     let x = ev.clientX + 14, y = ev.clientY + 14;
     if (x + r.width > window.innerWidth - 8) x = ev.clientX - r.width - 14;
@@ -577,228 +622,169 @@ details .scroll { margin-top: 10px; }
     tipEl.style.left = Math.max(8, x) + "px"; tipEl.style.top = Math.max(8, y) + "px";
   });
   document.addEventListener("pointerleave", () => { tipEl.hidden = true; });
-
-  function barPath(x, y, w, h, r) {
-    if (h <= 0.5) return "";
-    r = Math.min(r, w / 2, h);
-    return "M" + x + "," + (y + h) + "V" + (y + r) + "Q" + x + "," + y + " " + (x + r) + "," + y + "H" + (x + w - r) + "Q" + (x + w) + "," + y + " " + (x + w) + "," + (y + r) + "V" + (y + h) + "Z";
-  }
+  function barPath(x, y, w, h, r) { if (h <= 0.5) return ""; r = Math.min(r, w / 2, h); return "M" + x + "," + (y + h) + "V" + (y + r) + "Q" + x + "," + y + " " + (x + r) + "," + y + "H" + (x + w - r) + "Q" + (x + w) + "," + y + " " + (x + w) + "," + (y + r) + "V" + (y + h) + "Z"; }
+  function rect(x, y, w, h) { return h <= 0.5 ? "" : "M" + x + "," + (y + h) + "V" + y + "H" + (x + w) + "V" + (y + h) + "Z"; }
 
   /* ---------- charts ---------- */
-  function drawMonthly(el, months, Y) {
-    const W = Math.max(300, el.clientWidth || 700), H = W < 520 ? 230 : 280;
-    const L = 52, R = 8, Tp = 14, B = 26;
-    const pw = W - L - R, ph = H - Tp - B;
-    const maxV = Math.max(1, ...months.map((m) => Math.max(m.rev, m.pay + m.exp)));
-    const step = niceStep(maxV / 4); const top = Math.ceil(maxV / step) * step;
+  function drawMonthly(el, months) {
+    const W = Math.max(300, el.clientWidth || 700), H = W < 520 ? 240 : 290;
+    const L = 52, R = 8, Tp = 14, B = 26, pw = W - L - R, ph = H - Tp - B;
+    const maxV = Math.max(1, ...months.map((m) => Math.max(m.inc, m.pay + m.exp)));
+    const step = niceStep(maxV / 4), top = Math.ceil(maxV / step) * step;
     const y = (v) => Tp + ph - (v / top) * ph;
     const band = pw / 12, bw = Math.max(6, Math.min(36, band * 0.56));
-    let s = '<svg viewBox="0 0 ' + W + " " + H + '" height="' + H + '" role="img" aria-label="Monthly client billings and costs for ' + Y + '">';
+    let s = '<svg viewBox="0 0 ' + W + " " + H + '" height="' + H + '" role="img" aria-label="Income by month worked, ' + tY + '">';
     for (let v = 0; v <= top + 1e-9; v += step) {
       s += '<line class="' + (v === 0 ? "base" : "grid") + '" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>';
       s += '<text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + esc(compact(v)) + "</text>";
     }
-    const firstF = months.findIndex((m) => !m.actual);
-    if (firstF > 0) {
-      const fx = L + band * firstF;
-      s += '<line x1="' + fx + '" x2="' + fx + '" y1="' + Tp + '" y2="' + (Tp + ph) + '" stroke="var(--line-2)" stroke-dasharray="3 3"/>';
-      if (band >= 34) s += '<text x="' + (fx + 6) + '" y="' + (Tp + 10) + '">Forecast →</text>';
-    }
     months.forEach((m, i) => {
-      const cx = L + band * i + band / 2;
-      const d = barPath(cx - bw / 2, y(m.rev), bw, y(0) - y(m.rev), 4);
-      if (d) s += m.actual ? '<path d="' + d + '" fill="var(--s1)"/>' : '<path d="' + d + '" fill="var(--s1-soft)" stroke="var(--s1)" stroke-width="1" stroke-dasharray="3 2"/>';
-      if (band >= 30 || i % 2 === 0 || m.current) s += '<text x="' + cx + '" y="' + (H - 8) + '" text-anchor="middle"' + (m.current ? ' style="fill:var(--ink);font-weight:700"' : "") + ">" + m.label + "</text>";
+      const x = L + band * i + band / 2 - bw / 2;
+      const segs = [[m.paid, "var(--s1)", ""], [m.open, "var(--s1-mid)", ""], [m.fc, "var(--s1-soft)", ' stroke="var(--s1)" stroke-width="1" stroke-dasharray="3 2"']].filter((z) => z[0] > 0.5);
+      let base = 0;
+      segs.forEach((sg, j) => {
+        const y0 = y(base), y1 = y(base + sg[0]);
+        const d = j === segs.length - 1 ? barPath(x, y1, bw, y0 - y1, 4) : rect(x, y1, bw, y0 - y1);
+        if (d) s += '<path d="' + d + '" fill="' + sg[1] + '"' + sg[2] + "/>";
+        if (j > 0) s += '<line x1="' + x + '" x2="' + (x + bw) + '" y1="' + y0 + '" y2="' + y0 + '" stroke="var(--surface)" stroke-width="2"/>';
+        base += sg[0];
+      });
+      if (band >= 30 || i % 2 === 0 || m.current) s += '<text x="' + (L + band * i + band / 2) + '" y="' + (H - 8) + '" text-anchor="middle"' + (m.current ? ' style="fill:var(--ink);font-weight:700"' : "") + ">" + m.label + "</text>";
     });
-    const pts = months.map((m, i) => (L + band * i + band / 2) + "," + y(m.pay + m.exp));
-    s += '<polyline points="' + pts.join(" ") + '" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
-    const last = months[11];
-    s += '<circle cx="' + (L + band * 11 + band / 2) + '" cy="' + y(last.pay + last.exp) + '" r="4" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>';
+    s += '<polyline points="' + months.map((m, i) => (L + band * i + band / 2) + "," + y(m.pay + m.exp)).join(" ") + '" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    const lm = months[11];
+    s += '<circle cx="' + (L + band * 11 + band / 2) + '" cy="' + y(lm.pay + lm.exp) + '" r="4" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>';
     months.forEach((m, i) => {
-      const id = tips.push(
-        '<div class="tt">' + m.label + " " + Y + (m.actual ? " · earned" : " · forecast") + "</div>" +
-        tipRow({ c: "var(--s1)" }, "Client billings", money(m.rev)) +
-        tipRow({ c: "var(--s2)", line: 1 }, "Staff pay", money(m.pay)) +
-        tipRow({ c: "var(--s2)", line: 1 }, "Expenses", money(m.exp)) +
-        '<div class="tr" style="margin-top:4px;font-weight:700"><span>Profit</span><span>' + money(m.profit) + "</span></div>"
-      ) - 1;
+      const id = tips.push('<div class="tt">' + m.label + " " + tY + " work</div>" +
+        tipRow({ c: "var(--s1)" }, "Paid", money(m.paid)) + tipRow({ c: "var(--s1-mid)" }, "Invoiced, not paid", money(m.open)) + tipRow({ c: "var(--s1-soft)" }, "Still to bill", money(m.fc)) +
+        tipRow({ c: "var(--s2)", line: 1 }, m.payActual ? "Staff paid" : "Staff pay (est.)", money(m.pay)) + tipRow({ c: "var(--s2)", line: 1 }, "Expenses", money(m.exp)) +
+        '<div class="tr" style="margin-top:4px;font-weight:700"><span>Profit</span><span>' + money(m.inc - m.pay - m.exp) + "</span></div>") - 1;
       s += '<rect class="hit" data-tip="' + id + '" x="' + (L + band * i) + '" y="' + Tp + '" width="' + band + '" height="' + ph + '"/>';
     });
-    s += "</svg>";
-    el.innerHTML = s;
+    el.innerHTML = s + "</svg>";
   }
 
-  function drawStaff(el, years) {
-    const W = Math.max(280, el.clientWidth || 500), H = 220;
-    const L = 30, R = 6, Tp = 16, B = 26;
-    const pw = W - L - R, ph = H - Tp - B;
-    const maxV = Math.max(1, ...years.map((y) => Math.max(y.hired + y.expHire, y.letGo + y.expGo)));
-    const step = Math.max(1, niceStep(maxV / 4)); const top = Math.ceil(maxV / step) * step;
-    const yy = (v) => Tp + ph - (v / top) * ph;
-    const band = pw / years.length, bw = Math.max(8, Math.min(28, band * 0.3)), gap = 2;
-    let s = '<svg viewBox="0 0 ' + W + " " + H + '" height="' + H + '" role="img" aria-label="Placements hired and let go per year">';
+  function drawStaff(el, hires, exits) {
+    const n = Math.max(tM + 1, 1);
+    const W = Math.max(280, el.clientWidth || 500), H = 210, L = 28, R = 6, Tp = 16, B = 26, pw = W - L - R, ph = H - Tp - B;
+    const maxV = Math.max(1, ...hires.slice(0, n), ...exits.slice(0, n));
+    const step = Math.max(1, niceStep(maxV / 4)), top = Math.ceil(maxV / step) * step;
+    const y = (v) => Tp + ph - (v / top) * ph;
+    const band = pw / n, bw = Math.max(5, Math.min(18, band * 0.3));
+    let s = '<svg viewBox="0 0 ' + W + " " + H + '" height="' + H + '" role="img" aria-label="Staff hired and let go per month in ' + tY + '">';
     for (let v = 0; v <= top + 1e-9; v += step) {
-      s += '<line class="' + (v === 0 ? "base" : "grid") + '" x1="' + L + '" x2="' + (W - R) + '" y1="' + yy(v) + '" y2="' + yy(v) + '"/>';
-      s += '<text x="' + (L - 6) + '" y="' + (yy(v) + 4) + '" text-anchor="end">' + Math.round(v) + "</text>";
+      s += '<line class="' + (v === 0 ? "base" : "grid") + '" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>';
+      s += '<text x="' + (L - 6) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + v + "</text>";
     }
-    years.forEach((yr, i) => {
+    for (let i = 0; i < n; i++) {
       const cx = L + band * i + band / 2;
-      [[yr.hired, yr.expHire, "var(--s1)", cx - bw - gap / 2], [yr.letGo, yr.expGo, "var(--s2)", cx + gap / 2]].forEach(([a, e, col, x]) => {
-        const tot = a + e;
-        const dTot = barPath(x, yy(tot), bw, yy(0) - yy(tot), 4);
-        if (dTot && e > 0.05) s += '<path d="' + dTot + '" fill="' + col + '" fill-opacity=".35"/>';
-        if (a > 0) {
-          const dA = e > 0.05 ? "M" + x + "," + yy(0) + "V" + yy(a) + "H" + (x + bw) + "V" + yy(0) + "Z" : barPath(x, yy(a), bw, yy(0) - yy(a), 4);
-          s += '<path d="' + dA + '" fill="' + col + '"/>';
-          if (e > 0.05) s += '<line x1="' + x + '" x2="' + (x + bw) + '" y1="' + yy(a) + '" y2="' + yy(a) + '" stroke="var(--surface)" stroke-width="2"/>';
-        }
-        const lab = Math.round(tot);
-        s += '<text x="' + (x + bw / 2) + '" y="' + (yy(tot) - 4) + '" text-anchor="middle" style="fill:var(--ink-2)">' + lab + "</text>";
+      [[hires[i], "var(--s1)", cx - bw - 1], [exits[i], "var(--s2)", cx + 1]].forEach(([v, col, x]) => {
+        const d = barPath(x, y(v), bw, y(0) - y(v), 3); if (d) s += '<path d="' + d + '" fill="' + col + '"/>';
+        if (v) s += '<text x="' + (x + bw / 2) + '" y="' + (y(v) - 4) + '" text-anchor="middle" style="fill:var(--ink-2)">' + v + "</text>";
       });
-      s += '<text x="' + cx + '" y="' + (H - 8) + '" text-anchor="middle"' + (yr.y === tY ? ' style="fill:var(--ink);font-weight:700"' : "") + ">" + yr.y + "</text>";
-      const id = tips.push(
-        '<div class="tt">' + yr.y + "</div>" +
-        tipRow({ c: "var(--s1)" }, "Hired", String(yr.hired)) +
-        (yr.expHire > 0.05 ? tipRow({ c: "var(--s1-soft)" }, "Expected hires", "+" + yr.expHire.toFixed(1)) : "") +
-        tipRow({ c: "var(--s2)" }, "Let go", String(yr.letGo)) +
-        (yr.expGo > 0.05 ? tipRow({ c: "var(--s2)" }, "Expected to leave", "+" + yr.expGo.toFixed(1)) : "")
-      ) - 1;
+      if (band >= 26 || i % 2 === 0) s += '<text x="' + cx + '" y="' + (H - 8) + '" text-anchor="middle">' + MONTHS[i] + "</text>";
+      const id = tips.push('<div class="tt">' + MONTHS[i] + " " + tY + "</div>" + tipRow({ c: "var(--s1)" }, "Hired", String(hires[i])) + tipRow({ c: "var(--s2)" }, "Let go", String(exits[i]))) - 1;
       s += '<rect class="hit" data-tip="' + id + '" x="' + (L + band * i) + '" y="' + Tp + '" width="' + band + '" height="' + ph + '"/>';
-    });
-    s += "</svg>";
-    el.innerHTML = s;
+    }
+    el.innerHTML = s + "</svg>";
   }
 
   /* ---------- render ---------- */
   let M = null;
   function render() {
-    const ready = S.loaded.placements && S.loaded.expenses && S.loaded.settings;
-    $("loading").hidden = !!ready;
-    if (!ready) return;
+    const ready = COLLS.every((c) => S.loaded[c]);
+    $("loading").hidden = ready; if (!ready) return;
     renderMeta();
-    const hasData = S.placements.some((p) => parseD(p.start) != null);
-    $("emptyState").hidden = hasData;
-    $("dash").hidden = !hasData;
-    renderTables();
-    renderSettingsInputs();
-    if (!hasData) { M = null; return; }
-    M = compute(S.year);
-    renderDash();
+    const has = S.invoices.length > 0;
+    $("emptyState").hidden = has; $("dash").hidden = !has;
+    renderTables(); renderSettings();
+    if (!has) { M = null; return; }
+    M = compute(); renderDash();
   }
-
   function renderMeta() {
-    const sel = $("year");
-    const starts = S.placements.map((p) => parseD(p.start)).filter((x) => x != null).map((x) => new Date(x).getUTCFullYear());
-    const y0 = Math.min(tY, ...(starts.length ? starts : [tY]));
-    let opts = ""; for (let y = y0; y <= tY + 1; y++) opts += '<option value="' + y + '"' + (y === S.year ? " selected" : "") + ">" + y + "</option>";
-    if (sel.innerHTML !== opts) sel.innerHTML = opts;
     $("asof").textContent = "As of " + T.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
     const note = $("modeNote");
     if (S.mode === "local") { note.hidden = false; note.textContent = "Saved in this browser only"; }
-    else if (!S.canWrite) { note.hidden = false; note.textContent = "View only"; }
-    else note.hidden = true;
-    const exCount = S.placements.filter((p) => p.example).length + S.expenses.filter((x) => x.example).length;
-    const b = $("banner");
-    b.hidden = !exCount;
-    if (exCount) {
-      b.className = "banner";
-      b.innerHTML = "<span><b>These are example figures.</b> Edit the rows in Your records, or remove the examples and add your own.</span>" +
-        (S.canWrite ? '<button class="btn" type="button" id="clearExamples">Remove example data</button>' : "");
-    }
-    document.querySelectorAll("button.btn.primary, #records input, #records select, #records textarea, [data-set]").forEach((n) => { if (n.id !== "loadExamples") n.disabled = !S.canWrite; });
-    $("loadExamples").disabled = !S.canWrite;
+    else if (!S.canWrite) { note.hidden = false; note.textContent = "View only"; } else note.hidden = true;
+    document.querySelectorAll("[data-add], [data-set]").forEach((n) => (n.disabled = !S.canWrite));
+    const sel = $("f-client"), cur0 = sel.value;
+    const names = [...new Set(S.invoices.map((i) => i.client).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const opts = '<option value="">All clients</option>' + names.map((n) => '<option value="' + esc(n) + '"' + (n === cur0 ? " selected" : "") + ">" + esc(n) + "</option>").join("");
+    if (sel.innerHTML !== opts) sel.innerHTML = opts;
+    const dl = $("dl-clients") || document.body.appendChild(Object.assign(document.createElement("datalist"), { id: "dl-clients" }));
+    dl.innerHTML = S.clients.map((c) => '<option value="' + esc(c.name) + '">').join("");
   }
+
+  function kpi(label, value, note, cls) { return '<div class="kpi' + (cls ? " " + cls : "") + '"><span class="label">' + esc(label) + '</span><span class="value num">' + value + '</span><span class="note">' + note + "</span></div>"; }
+  function mini(l, v, sub) { return '<div class="mini"><span class="l">' + esc(l) + '</span><span class="v">' + esc(v) + '</span><span class="l muted">' + esc(sub) + "</span></div>"; }
 
   function renderDash() {
     tips.length = 0;
-    const { months, res, active, years } = M;
-    const Y = S.year;
-    const rev = sum(months.map((m) => m.rev)), earned = sum(months.filter((m) => m.actual).map((m) => m.rev));
-    const profit = sum(months.map((m) => m.profit));
-    const pay = sum(months.map((m) => m.pay)), exp = sum(months.map((m) => m.exp));
-    const yrRow = years.find((y) => y.y === Y) || { hired: 0, letGo: 0, expHire: 0, expGo: 0 };
-    const allActual = months.every((m) => m.actual), allFc = months.every((m) => !m.actual);
-    const revNote = allActual ? "Earned in " + Y : allFc ? "All forecast" : money(earned) + " earned so far · " + money(rev - earned) + " forecast";
+    const { months, res, owed, alerts, groupList } = M;
+    const inc = sum(months.map((m) => m.inc)), paid = sum(months.map((m) => m.paid)), open = sum(months.map((m) => m.open)), fc = sum(months.map((m) => m.fc));
+    const pay = sum(months.map((m) => m.pay)), exp = sum(months.map((m) => m.exp)), profit = inc - pay - exp;
+    const owedTot = sum(owed.map((i) => num(i.amount))), overdue = owed.filter((i) => i.days != null && i.days > 0);
     const covered = res.gap <= 0;
     $("kpis").innerHTML =
-      kpi("Client billings " + Y, money(rev), revNote) +
-      kpi("Profit " + Y, '<span class="' + (profit < 0 ? "neg" : "") + '">' + money(profit) + "</span>",
-        "After " + money(pay) + " staff pay and " + money(exp) + " expenses" + (rev > 0 ? " · " + Math.round(profit / rev * 100) + "% margin" : "")) +
-      kpi("Reserve to hold", money(res.total),
-        covered ? '<span class="pos">Covered by the ' + money(M.c.reserveNow) + " already set aside</span>"
-          : "Set aside <b>" + money(res.perMonth) + "/month</b> to have it by December", true) +
-      kpi("Placed right now", String(active.length),
-        "In " + Y + ": " + yrRow.hired + " hired, " + yrRow.letGo + " let go" + (yrRow.expHire + yrRow.expGo > 0.05 ? " · about " + plural(Math.round(yrRow.expHire), "more hire") + " and " + plural(Math.round(yrRow.expGo), "exit") + " expected" : ""));
+      kpi("Projected income " + tY, money(inc), money(paid) + " paid · " + money(open) + " invoiced, not paid · " + money(fc) + " still to bill") +
+      kpi("Projected profit " + tY, '<span class="' + (profit < 0 ? "neg" : "") + '">' + money(profit) + "</span>", "After " + money(pay) + " staff pay and " + money(exp) + " expenses" + (inc > 0 ? " · " + Math.round(profit / inc * 100) + "% margin" : "")) +
+      kpi("Owed to you now", money(owedTot), plural(owed.length, "invoice") + " · " + overdue.length + " past due" + (overdue.length ? " · oldest " + overdue[0].days + " days" : "")) +
+      kpi("Payroll reserve to hold", money(res.total), covered ? '<span class="pos">Covered by what you set aside</span>' : money(M.c.reserveNow) + " set aside so far · " + money(res.gap) + " to go", "key");
 
-    const firstF = months.find((m) => !m.actual);
-    $("incomeNote").textContent = allActual ? "All months are recorded figures." :
-      allFc ? "Every month is forecast from today's placements plus " + M.h.toFixed(1) + " new hires a month." :
-        "Earned figures through " + MONTHS[(firstF.m + 11) % 12] + "; " + firstF.label + " onward is forecast from today's placements, " + M.h.toFixed(1) + " new hires and " + (M.ch * 100).toFixed(1) + "% let go each month.";
-    drawMonthly($("chartMonthly"), months, Y);
-    $("monthTable").innerHTML = "<thead><tr><th>Month</th><th></th><th class=r>Client billings</th><th class=r>Staff pay</th><th class=r>Expenses</th><th class=r>Profit</th></tr></thead><tbody>" +
-      months.map((m) => "<tr><td>" + m.label + "</td><td class=muted>" + (m.actual ? "Earned" : "Forecast") + "</td><td class='r num'>" + money(m.rev) + "</td><td class='r num'>" + money(m.pay) + "</td><td class='r num'>" + money(m.exp) + "</td><td class='r num " + (m.profit < 0 ? "neg" : "") + "'>" + money(m.profit) + "</td></tr>").join("") +
-      "<tr><td><b>Total</b></td><td></td><td class='r num'><b>" + money(rev) + "</b></td><td class='r num'><b>" + money(pay) + "</b></td><td class='r num'><b>" + money(exp) + "</b></td><td class='r num'><b>" + money(profit) + "</b></td></tr></tbody>";
+    $("alerts").innerHTML = alerts.length ? alerts.map((a) => '<div class="alert"><i class="dot st-' + (a.sev === "info" ? "good" : a.sev) + '"' + (a.sev === "info" ? ' style="background:var(--line-2)"' : "") + '></i><div class="msg"><b>' + esc(a.title) + "</b><small>" + esc(a.sub) + '</small></div><span class="tag">' + esc(a.tag) + "</span></div>").join("") : '<p class="muted">Nothing missing. Every active client has an invoice for every month so far.</p>';
 
-    drawStaff($("chartStaff"), years);
-    const ended = M.P.filter((p) => parseD(p.end) != null && parseD(p.end) < todayMs);
-    const tenure = avg(ended.map((p) => (parseD(p.end) - parseD(p.start)) / (30.44 * DAY)));
-    $("staffMinis").innerHTML =
-      mini("Hires per month", M.auto.hires.toFixed(1), "last " + plural(M.auto.win, "month")) +
-      mini("Let go per month", (M.auto.churn * 100).toFixed(1) + "%", "of placed staff") +
-      mini("Average placement lasts", ended.length ? tenure.toFixed(1) + " mo" : "—", ended.length ? "from " + plural(ended.length, "ended placement") : "none ended yet");
+    $("owedNote").textContent = owed.length ? money(owedTot) + " across " + plural(owed.length, "invoice") + ". Estimates are my guesses from each client's last bill; edit them once you have the real amount." : "Nothing outstanding.";
+    $("owedTable").innerHTML = "<thead><tr><th>Client</th><th>Work period</th><th class=r>Amount</th><th>Due</th><th>Status</th><th></th></tr></thead><tbody>" + owed.map((i) => {
+      const st = i.days == null ? ["", "No due date"] : i.days > 30 ? ["crit", plural(i.days, "day") + " late"] : i.days > 7 ? ["serious", plural(i.days, "day") + " late"] : i.days > 0 ? ["warn", plural(i.days, "day") + " late"] : i.days === 0 ? ["warn", "Due today"] : ["good", "Due in " + -i.days + " days"];
+      return "<tr><td>" + esc(i.client) + (i.note ? '<div class="muted" style="font-size:12px;max-width:42ch">' + esc(i.note) + "</div>" : "") + "</td><td>" + esc(i.period || idxLabel(ymIdx(i.month) || tIdx, true)) + "</td><td class='r num'>" + money(num(i.amount)) + (i.estimate ? '<span class="est">Est.</span>' : "") +
+        "</td><td class=num>" + fmtDate(i.due) + '</td><td><span class="pill"><i class="dot ' + (st[0] ? "st-" + st[0] : "") + '"' + (st[0] ? "" : ' style="background:var(--line-2)"') + "></i>" + st[1] + "</span></td><td>" +
+        (S.canWrite ? '<button class="btn sm" type="button" data-markpaid="' + esc(i.id) + '">Mark paid today</button>' : "") + "</td></tr>";
+    }).join("") + "</tbody>";
 
-    const n = active.length;
-    $("payMinis").innerHTML =
-      mini("Client pays on average", n ? money(M.billSum / n) : "—", "per placement / month") +
-      mini("You pay staff", n ? money(M.paySum / n) : "—", "per placement / month") +
-      mini("You keep", n ? money((M.billSum - M.paySum) / n) : "—", M.billSum ? Math.round((M.billSum - M.paySum) / M.billSum * 100) + "% of billings" : "") +
-      mini("Paid late", M.billSum ? Math.round(sum(M.late.map((p) => num(p.bill))) / M.billSum * 100) + "%" : "—", "of monthly billings, avg " + Math.round(M.wDelay) + " days");
-    const maxD = Math.max(30, ...M.clients.map((c) => c.delay));
-    $("delayBars").innerHTML = M.clients.length ? M.clients.map((c) => {
-      const st = delayStatus(c.delay);
-      const w = c.delay > 0 ? Math.max(2, c.delay / maxD * 100) : 0;
-      return '<div class="hbar"><div class="who">' + esc(c.name) + "<small>" + plural(c.n, "placement") + " · " + money(c.bill) + "/mo</small></div>" +
-        '<div class="track">' + (w ? '<div class="fill st-' + st[0] + '" style="width:calc((100% - 180px) * ' + (w / 100).toFixed(3) + ')"></div>' : "") + '<span class="t">' +
-        (c.delay > 0 ? Math.round(c.delay) + " days" : "On time") + '</span><span class="pill"><i class="dot st-' + st[0] + '"></i>' + st[1] + "</span></div></div>";
-    }).join("") : '<p class="muted">Nobody is placed right now.</p>';
+    $("incomeNote").textContent = "Each invoice counts in the month the work was done. Months not billed yet use the client's average of their last 3 full months. " + money(M.collected) + " has actually landed in your accounts so far this year (including late payments for 2025 work).";
+    drawMonthly($("chartMonthly"), months);
+    $("monthTable").innerHTML = "<thead><tr><th>Month</th><th class=r>Paid</th><th class=r>Invoiced, not paid</th><th class=r>Still to bill</th><th class=r>Staff pay</th><th class=r>Expenses</th><th class=r>Profit</th></tr></thead><tbody>" +
+      months.map((m) => "<tr><td>" + m.label + "</td><td class='r num'>" + money(m.paid) + "</td><td class='r num'>" + money(m.open) + "</td><td class='r num'>" + money(m.fc) + "</td><td class='r num'>" + money(m.pay) + (m.payActual ? "" : " <span class=muted>est.</span>") + "</td><td class='r num'>" + money(m.exp) + "</td><td class='r num " + (m.inc - m.pay - m.exp < 0 ? "neg" : "") + "'>" + money(m.inc - m.pay - m.exp) + "</td></tr>").join("") +
+      "<tr><td><b>Total</b></td><td class='r num'><b>" + money(paid) + "</b></td><td class='r num'><b>" + money(open) + "</b></td><td class='r num'><b>" + money(fc) + "</b></td><td class='r num'><b>" + money(pay) + "</b></td><td class='r num'><b>" + money(exp) + "</b></td><td class='r num'><b>" + money(profit) + "</b></td></tr></tbody>";
 
-    // Reserve
+    $("clientTable").innerHTML = "<thead><tr><th>Client</th><th>Billing</th><th class=r>Bills /mo</th><th class=r>Staff cost /mo</th><th class=r>You keep /mo</th><th class=r>Pays vs due</th><th>Cash gap after payday</th><th class=r>Owed now</th></tr></thead><tbody>" +
+      groupList.map((g) => {
+        const internal = [...g.billing].every((b) => b === "internal");
+        const keep = g.billed - g.staff, st = gapStatus(internal ? null : g.gapAvg);
+        const bill = [...g.billing].filter((b) => b !== "none").map((b) => ({ pre: "Prebilled", after: "After work", internal: "Internal" }[b] || b)).join(" + ");
+        const vs = g.vsDueAvg == null ? "—" : Math.abs(Math.round(g.vsDueAvg)) === 0 ? "On the day" : Math.round(g.vsDueAvg) < 0 ? plural(Math.abs(Math.round(g.vsDueAvg)), "day") + " early" : plural(Math.round(g.vsDueAvg), "day") + " late";
+        return "<tr><td><b>" + esc(g.name) + "</b>" + (g.members.length > 1 ? '<div class="muted" style="font-size:12px">' + esc(g.members.map((m) => m.name).join(", ")) + "</div>" : "") + "</td><td>" + esc(bill) + "</td><td class='r num'>" + (g.billed ? money(g.billed) : "—") + "</td><td class='r num'>" + (g.staff ? money(g.staff) : "—") +
+          "</td><td class='r num " + (keep < 0 && g.billed ? "neg" : "") + "'>" + (g.billed ? money(keep) + ' <span class="muted">' + Math.round(keep / g.billed * 100) + "%</span>" : internal ? "Overhead" : g.staff ? '<span class="neg">Not billed</span>' : "—") +
+          "</td><td class='r num'>" + vs + '</td><td><span class="pill"><i class="dot ' + (st[0] ? "st-" + st[0] : "") + '"' + (st[0] ? "" : ' style="background:var(--line-2)"') + "></i>" + (g.gapAvg == null || internal ? st[1] : g.gapAvg <= 0 ? Math.round(-g.gapAvg) + " days before" : Math.round(g.gapAvg) + " days") + "</span></td><td class='r num'>" + (g.owed ? money(g.owed) : "—") + "</td></tr>";
+      }).join("") + "</tbody>";
+
+    // staff
+    const hiredY = sum(M.hires), goneY = sum(M.exits), mPassed = tM + 1;
+    $("staffNote").textContent = "From the payroll app and who got paid each month in your statements. Only " + tY + " is loaded, so earlier years aren't shown.";
+    drawStaff($("chartStaff"), M.hires, M.exits);
+    $("staffMinis").innerHTML = mini("Working now", String(M.activeCount), "people") + mini("Hired in " + tY, String(hiredY), "about " + Math.round(hiredY / mPassed * 12) + " by Dec at this pace") +
+      mini("Let go in " + tY, String(goneY), "about " + Math.round(goneY / mPassed * 12) + " by Dec at this pace") + mini("Monthly payroll", money(M.totalStaff), "from current rates and hours");
+
+    // reserve
     const r = res;
     $("resTotal").textContent = money(r.total);
-    $("resSub").innerHTML = covered ? '<span class="pos">You already have ' + money(M.c.reserveNow) + " set aside. You're covered.</span>"
-      : money(M.c.reserveNow) + " set aside · " + money(r.gap) + " still to go";
-    const parts = [
-      { c: "var(--s1)", what: "Cover staff pay while clients are late", amt: r.payrollFloat,
-        why: r.factor > 0 ? "Clients pay, on average, " + Math.round(r.factor * 30) + " days after payday (weighted by staff pay" + (M.c.lead ? ", including the " + M.c.lead + " days you pay early" : "") + "). That's " + (r.factor * 100).toFixed(0) + "% of a month of payroll, sized to " + r.peakLabel + " of " + money(r.peakPay) + "."
-          : "Every active client pays on time, so no float is needed for regular payroll." },
-      { c: "var(--s2)", what: "Expense cushion", amt: r.expBuffer,
-        why: M.c.bufferMonths + " " + (M.c.bufferMonths === 1 ? "month" : "months") + " of business expenses, which average " + money(r.expMonthly) + "/month in " + tY + "." },
-      { c: "var(--s3)", what: "Biggest client misses a month", amt: r.shock,
-        why: M.c.shock ? (r.biggest ? esc(r.biggest.name) + " is your largest payroll at " + money(r.biggest.pay) + "/month. This keeps their staff paid for a full month if that client stops paying." : "No active clients.")
-          : "Switched off below." }
-    ];
-    $("resStack").innerHTML = r.total > 0 ? parts.filter((p) => p.amt > 0).map((p) => '<div style="width:' + (p.amt / r.total * 100) + "%;background:" + p.c + '"></div>').join("") : "";
-    $("resParts").innerHTML = parts.map((p) => '<div class="part"><i class="sw" style="background:' + p.c + '"></i><span class="what">' + p.what + '</span><span class="amt">' + money(p.amt) + '</span><span class="why">' + p.why + "</span></div>").join("");
-    const pct = r.monthlyProfitNow > 0 ? Math.round(r.perMonth / r.monthlyProfitNow * 100) : null;
-    $("resPlan").innerHTML = covered
-      ? "<strong>Nothing more to set aside right now.</strong><span>Keep the " + money(M.c.reserveNow) + " untouched. Recheck after you add a placement or a client starts paying later.</span>"
-      : "<strong>Set aside " + money(r.perMonth) + " a month for the next " + plural(r.monthsLeft, "month") + ".</strong><span>That closes the " + money(r.gap) + " gap by December 31" +
-        (pct != null ? ", about " + pct + "% of your current monthly profit of " + money(r.monthlyProfitNow) + "." : ". Your current monthly profit doesn't cover it yet, so consider tighter payment terms with your late clients.") + "</span>";
-
-    // Assumption hints
-    $("hint-hires").textContent = "Calculated: " + M.auto.hires.toFixed(1) + " from your last " + plural(M.auto.win, "month");
-    $("hint-churn").textContent = "Calculated: " + (M.auto.churn * 100).toFixed(1) + "% of placed staff leave each month";
-    $("hint-newBill").textContent = "Calculated: " + money(M.auto.bill) + " (recent placements)";
-    $("hint-newPay").textContent = "Calculated: " + money(M.auto.pay) + " (recent placements)";
-    $("set-hires").placeholder = M.auto.hires.toFixed(1);
-    $("set-churn").placeholder = (M.auto.churn * 100).toFixed(1);
-    $("set-newBill").placeholder = Math.round(M.auto.bill);
-    $("set-newPay").placeholder = Math.round(M.auto.pay);
+    $("resSub").innerHTML = covered ? '<span class="pos">You have ' + money(M.c.reserveNow) + " set aside. You're covered.</span>" : money(M.c.reserveNow) + " set aside · " + money(r.gap) + " to go";
+    const top = r.parts.slice(0, 5), rest = r.parts.slice(5);
+    const rows = top.map((p, i) => ({ c: ["var(--s1)", "var(--s3)", "var(--s4)", "var(--s5)", "var(--s6)"][i], what: p.kind === "unbilled" ? p.g.name + ": not billed yet" : p.g.name + " pays " + Math.round(p.days) + " days after payday", amt: p.amt,
+      why: p.kind === "unbilled" ? "You're paying " + money(p.g.staff) + "/month in staff with no payment on record. Hold a full month until they pay." : money(p.g.staff) + "/month in staff × " + Math.round(p.days) + " days of waiting." }));
+    if (rest.length) rows.push({ c: "var(--s7)", what: "Smaller clients", amt: sum(rest.map((p) => p.amt)), why: rest.map((p) => p.g.name + " (" + money(p.amt) + ")").join(", ") });
+    rows.push({ c: "var(--s2)", what: "Overhead cushion", amt: r.cushion, why: M.c.bufferMonths + " " + (M.c.bufferMonths === 1 ? "month" : "months") + " of expenses (" + money(r.expMonthly) + "/mo) and your internal team (" + money(r.internal) + "/mo)." });
+    rows.push({ c: "var(--s8)", what: "Biggest client misses a month", amt: r.shock, why: M.c.shock && r.biggest ? r.biggest.name + " has the largest payroll at " + money(r.biggest.staff) + "/month." : "Switched off." });
+    $("resStack").innerHTML = r.total > 0 ? rows.filter((p) => p.amt > 0).map((p) => '<div style="width:' + (p.amt / r.total * 100) + "%;background:" + p.c + '" title="' + esc(p.what) + '"></div>').join("") : "";
+    $("resParts").innerHTML = rows.map((p) => '<div class="part"><i class="sw" style="background:' + p.c + '"></i><span class="what">' + esc(p.what) + '</span><span class="amt">' + money(p.amt) + '</span><span class="why">' + esc(p.why) + "</span></div>").join("");
+    const runProfit = M.months[Math.min(11, tM)].inc - M.months[Math.min(11, tM)].pay - M.months[Math.min(11, tM)].exp;
+    $("resPlan").innerHTML = covered ? "<strong>Nothing more to set aside right now.</strong><span>Recheck when a client starts paying later or you add staff.</span>"
+      : (runProfit > 0 && r.perMonth > runProfit * 0.5
+        ? "<strong>Set aside " + money(r.gap / 6) + " a month for 6 months.</strong><span>Reaching the full " + money(r.total) + " by December 31 would take " + money(r.perMonth) + " a month, which is " + Math.round(r.perMonth / runProfit * 100) + "% of a typical month's profit (" + money(runProfit) + "). Six months keeps it to about " + Math.round(r.gap / 6 / runProfit * 100) + "%. Collecting the " + money(owedTot) + " you're owed gets you there faster.</span>"
+        : "<strong>Set aside " + money(r.perMonth) + " a month for the next " + plural(r.monthsLeft, "month") + ".</strong><span>That builds the full " + money(r.total) + " by December 31" + (runProfit > 0 ? ", about " + Math.round(r.perMonth / runProfit * 100) + "% of a typical month's profit (" + money(runProfit) + ")." : ".") + "</span>");
   }
-  function kpi(label, value, note, key) { return '<div class="kpi' + (key ? " key" : "") + '"><span class="label">' + esc(label) + '</span><span class="value num">' + value + '</span><span class="note">' + note + "</span></div>"; }
-  function mini(l, v, sub) { return '<div class="mini"><span class="l">' + esc(l) + '</span><span class="v">' + esc(v) + '</span><span class="l muted">' + esc(sub) + "</span></div>"; }
 
-  function renderSettingsInputs() {
+  function renderSettings() {
     const s = S.settings || {};
     document.querySelectorAll("[data-set]").forEach((inp) => {
       if (document.activeElement === inp) return;
@@ -806,227 +792,110 @@ details .scroll { margin-top: 10px; }
       if (inp.type === "checkbox") inp.checked = s[k] !== false;
       else if (k === "currency") inp.value = s.currency || "$";
       else if (k === "bufferMonths") inp.value = s.bufferMonths == null || s.bufferMonths === "" ? 1 : s.bufferMonths;
-      else if (k === "reserveNow" || k === "lead") inp.value = s[k] == null ? "" : s[k];
       else inp.value = s[k] == null ? "" : s[k];
     });
-    $("set-reserveNow").placeholder = "0"; $("set-lead").placeholder = "0";
+    $("set-reserveNow").placeholder = "0";
   }
 
   /* ---------- editable tables ---------- */
+  const SPEC = {
+    invoices: [
+      { k: "client", l: "Client", t: "text", cls: "w-client", list: "dl-clients" }, { k: "month", l: "Work month", t: "month" }, { k: "half", l: "Half", t: "select", opts: [["", "Full"], ["1", "1st"], ["2", "2nd"]] },
+      { k: "period", l: "Period", t: "text", cls: "w-role" }, { k: "amount", l: "Amount", t: "number", cls: "w-num" }, { k: "sent", l: "Sent", t: "date" }, { k: "due", l: "Due", t: "date" }, { k: "paid", l: "Paid", t: "date" },
+      { k: "received", l: "Received", t: "number", cls: "w-num" }, { k: "via", l: "Via", t: "select", opts: [["", "—"], ["Wise", "Wise"], ["Payoneer", "Payoneer"], ["Relay", "Relay"], ["Stripe", "Stripe"]] }, { k: "note", l: "Note", t: "text", cls: "w-note" }],
+    clients: [
+      { k: "name", l: "Client", t: "text", cls: "w-client" }, { k: "group", l: "Group", t: "text", cls: "w-role" }, { k: "billing", l: "Billing", t: "select", opts: [["pre", "Prebilled"], ["after", "After work"], ["internal", "Internal team"], ["none", "Not a client"]] },
+      { k: "cadence", l: "Invoices", t: "select", opts: [["monthly", "Monthly"], ["semi", "Twice a month"]] }, { k: "day", l: "Bill day", t: "number", cls: "w-xs" }, { k: "via", l: "Paid via", t: "text", cls: "w-sm" },
+      { k: "active", l: "Active", t: "check" }, { k: "forecast", l: "Forecast /mo", t: "number", cls: "w-num" }, { k: "note", l: "Note", t: "text", cls: "w-note" }],
+    staff: [
+      { k: "name", l: "Name", t: "text", cls: "w-client" }, { k: "client", l: "Client", t: "text", cls: "w-role", list: "dl-clients" }, { k: "rate", l: "Rate /hr", t: "number", cls: "w-sm" }, { k: "hours", l: "Hours /mo", t: "number", cls: "w-sm" },
+      { k: "fixed", l: "Monthly fixed", t: "number", cls: "w-num" }, { k: "start", l: "Started", t: "month" }, { k: "end", l: "Left", t: "month" }, { k: "note", l: "Note", t: "text", cls: "w-note" }],
+    payroll: [{ k: "month", l: "Month", t: "month" }, { k: "amount", l: "Paid to staff", t: "number", cls: "w-num" }, { k: "note", l: "Note", t: "text", cls: "w-note" }],
+    expenses: [{ k: "name", l: "Expense", t: "text", cls: "w-client" }, { k: "amount", l: "Amount", t: "number", cls: "w-num" }, { k: "freq", l: "How often", t: "select", opts: [["monthly", "Monthly"], ["yearly", "Yearly"], ["once", "One-off"]] }, { k: "date", l: "Date", t: "date" }, { k: "note", l: "Note", t: "text", cls: "w-note" }]
+  };
+  const SORT = {
+    invoices: (a, b) => (ymIdx(b.month) || 0) - (ymIdx(a.month) || 0) || String(a.client).localeCompare(String(b.client)) || String(a.half).localeCompare(String(b.half)),
+    clients: (a, b) => (b.active !== false) - (a.active !== false) || String(a.name).localeCompare(String(b.name)),
+    staff: (a, b) => (isActiveStaff(b) - isActiveStaff(a)) || String(a.client || "zz").localeCompare(String(b.client || "zz")) || String(a.name).localeCompare(String(b.name)),
+    payroll: (a, b) => (ymIdx(b.month) || 0) - (ymIdx(a.month) || 0),
+    expenses: (a, b) => num(b.amount) - num(a.amount)
+  };
+  function cell(spec, v) {
+    const a = ' data-k="' + spec.k + '" aria-label="' + esc(spec.l) + '"' + (S.canWrite ? "" : " disabled");
+    if (spec.t === "select") return "<select" + a + ">" + spec.opts.map(([val, lab]) => '<option value="' + val + '"' + (String(v == null ? "" : v) === val ? " selected" : "") + ">" + lab + "</option>").join("") + "</select>";
+    if (spec.t === "check") return '<input type="checkbox"' + a + (v !== false ? " checked" : "") + ">";
+    return '<input type="' + spec.t + '" class="' + (spec.cls || (spec.t === "date" || spec.t === "month" ? "w-date" : "")) + '"' + (spec.list ? ' list="' + spec.list + '"' : "") + (spec.t === "number" ? ' step="any"' : "") + ' value="' + esc(v == null ? "" : v) + '"' + a + ">";
+  }
   const pending = {};
-  function guardRender(tblId, fn) {
-    const tbl = $(tblId);
-    if (tbl.contains(document.activeElement)) { pending[tblId] = fn; return; }
-    fn();
-  }
-  document.addEventListener("focusout", () => {
-    setTimeout(() => { Object.keys(pending).forEach((k) => { if (!$(k).contains(document.activeElement)) { const f = pending[k]; delete pending[k]; f(); } }); }, 0);
-  });
-
+  function guard(id, fn) { const t = $(id); if (t.contains(document.activeElement)) { pending[id] = fn; return; } fn(); }
+  document.addEventListener("focusout", () => setTimeout(() => Object.keys(pending).forEach((k) => { if (!$(k).contains(document.activeElement)) { const f = pending[k]; delete pending[k]; f(); } }), 0));
   function renderTables() {
-    guardRender("tblPlacements", () => {
-      const rows = S.placements.slice().sort((a, b) => (parseD(b.start) || 9e15) - (parseD(a.start) || 9e15));
-      $("tblPlacements").innerHTML = "<thead><tr><th>Client</th><th>Staff member / role</th><th>Start</th><th>End</th><th class=r>Client pays /mo</th><th class=r>Staff pay /mo</th><th class=r>Days late</th><th>Status</th><th></th></tr></thead><tbody>" +
-        rows.map((p) => {
-          const act = activeOn(p, todayMs); const fut = parseD(p.start) > todayMs;
-          return '<tr data-id="' + esc(p.id) + '"' + (p.example ? ' class="ex"' : "") + ">" +
-            '<td><input class="w-client" type="text" data-k="client" value="' + esc(p.client) + '" aria-label="Client"></td>' +
-            '<td><input class="w-role" type="text" data-k="role" value="' + esc(p.role) + '" aria-label="Staff member or role"></td>' +
-            '<td><input class="w-date" type="date" data-k="start" value="' + esc(p.start) + '" aria-label="Start date"></td>' +
-            '<td><input class="w-date" type="date" data-k="end" value="' + esc(p.end) + '" aria-label="End date"></td>' +
-            '<td><input class="w-num" type="number" min="0" step="50" data-k="bill" value="' + esc(p.bill) + '" aria-label="Client pays per month"></td>' +
-            '<td><input class="w-num" type="number" min="0" step="50" data-k="pay" value="' + esc(p.pay) + '" aria-label="Staff pay per month"></td>' +
-            '<td><input class="w-sm" type="number" min="0" step="1" data-k="delay" value="' + esc(p.delay) + '" aria-label="Days late"></td>' +
-            '<td class="status-cell"><span class="pill"><i class="dot ' + (act ? "st-good" : fut ? "st-warn" : "") + '" style="' + (act || fut ? "" : "background:var(--line-2)") + '"></i>' + (act ? "Placed" : fut ? "Starting" : "Ended") + "</span></td>" +
-            '<td><button class="del" type="button" data-del="placements"' + (S.canWrite ? "" : " disabled") + ">Delete</button></td></tr>";
-        }).join("") + "</tbody>";
-      $("placeCount").textContent = S.placements.length ? plural(S.placements.length, "placement") + " · " + S.placements.filter((p) => activeOn(p, todayMs)).length + " placed today" : "";
-      if (!S.canWrite) $("tblPlacements").querySelectorAll("input").forEach((i) => (i.disabled = true));
-    });
-    guardRender("tblExpenses", () => {
-      const rows = S.expenses.slice().sort((a, b) => num(b.amount) - num(a.amount));
-      $("tblExpenses").innerHTML = "<thead><tr><th>Expense</th><th class=r>Amount</th><th>How often</th><th>Date</th><th class=r>Per year (" + tY + ")</th><th></th></tr></thead><tbody>" +
-        rows.map((x) => {
-          const yr = sum(Array.from({ length: 12 }, (_, m) => expenseIn(x, tY * 12 + m)));
-          return '<tr data-id="' + esc(x.id) + '"' + (x.example ? ' class="ex"' : "") + ">" +
-            '<td><input class="w-client" type="text" data-k="name" value="' + esc(x.name) + '" aria-label="Expense name"></td>' +
-            '<td><input class="w-num" type="number" min="0" step="10" data-k="amount" value="' + esc(x.amount) + '" aria-label="Amount"></td>' +
-            '<td><select data-k="freq" aria-label="How often">' + [["monthly", "Monthly"], ["yearly", "Yearly"], ["once", "One-off"]].map(([v, l]) => '<option value="' + v + '"' + ((x.freq || "monthly") === v ? " selected" : "") + ">" + l + "</option>").join("") + "</select></td>" +
-            '<td><input class="w-date" type="date" data-k="date" value="' + esc(x.date) + '" aria-label="Date"></td>' +
-            '<td class="r num">' + money(yr) + "</td>" +
-            '<td><button class="del" type="button" data-del="expenses"' + (S.canWrite ? "" : " disabled") + ">Delete</button></td></tr>";
-        }).join("") + "</tbody>";
-      if (!S.canWrite) $("tblExpenses").querySelectorAll("input,select").forEach((i) => (i.disabled = true));
-    });
+    Object.keys(SPEC).forEach((c) => guard("tbl-" + c, () => {
+      let rows = S[c].slice().sort(SORT[c]);
+      if (c === "invoices") {
+        const fs = $("f-status").value, fc = $("f-client").value;
+        rows = rows.filter((i) => (fs === "all" || (fs === "recent" && (!i.paid || (ymIdx(i.month) || 0) >= tIdx - 3)) || (fs === "unpaid" && !i.paid) || (fs === "est" && i.estimate)) && (!fc || i.client === fc));
+        $("invCount").textContent = rows.length + " of " + S.invoices.length;
+      }
+      $("tbl-" + c).innerHTML = "<thead><tr>" + SPEC[c].map((s) => "<th>" + esc(s.l) + "</th>").join("") + "<th></th></tr></thead><tbody>" +
+        rows.map((r) => '<tr data-id="' + esc(r.id) + '">' + SPEC[c].map((s) => "<td>" + cell(s, r[s.k]) + (s.k === "amount" && r.estimate ? '<span class="est">Est.</span>' : "") + "</td>").join("") +
+          '<td><button class="del" type="button" data-del="' + c + '"' + (S.canWrite ? "" : " disabled") + ">Delete</button></td></tr>").join("") + "</tbody>";
+    }));
   }
-
-  function rowData(tr, coll) {
-    const id = tr.getAttribute("data-id");
-    const orig = S[coll].find((r) => r.id === id) || {};
-    const o = Object.assign({}, orig); delete o.id;
-    tr.querySelectorAll("[data-k]").forEach((inp) => {
-      const k = inp.getAttribute("data-k");
-      o[k] = inp.type === "number" ? (inp.value === "" ? "" : num(inp.value)) : inp.value.trim();
-    });
-    o.example = false;
-    return { id, o };
-  }
-  ["tblPlacements", "tblExpenses"].forEach((tid) => {
-    const coll = tid === "tblPlacements" ? "placements" : "expenses";
-    $(tid).addEventListener("change", (ev) => {
+  Object.keys(SPEC).forEach((c) => {
+    const tbl = $("tbl-" + c);
+    tbl.addEventListener("change", (ev) => {
       if (!S.canWrite) return;
       const tr = ev.target.closest("tr[data-id]"); if (!tr) return;
-      const { id, o } = rowData(tr, coll);
-      store.put(coll, id, o);
+      const id = tr.getAttribute("data-id"), o = Object.assign({}, S[c].find((r) => r.id === id) || {}); delete o.id;
+      tr.querySelectorAll("[data-k]").forEach((inp) => {
+        const k = inp.getAttribute("data-k"), sp = SPEC[c].find((s) => s.k === k);
+        o[k] = sp.t === "check" ? inp.checked : sp.t === "number" ? numOrNull(inp.value) : inp.value.trim();
+        if (sp.k === "day" && o[k] == null) o[k] = 30;
+      });
+      if (c === "invoices" && (ev.target.getAttribute("data-k") === "amount" || ev.target.getAttribute("data-k") === "paid")) o.estimate = false;
+      store.put(c, id, o);
     });
-    $(tid).addEventListener("click", (ev) => {
+    tbl.addEventListener("click", (ev) => {
       const b = ev.target.closest("[data-del]"); if (!b || !S.canWrite) return;
-      if (!b.classList.contains("armed")) {
-        b.classList.add("armed"); b.textContent = "Confirm";
-        setTimeout(() => { if (b.isConnected) { b.classList.remove("armed"); b.textContent = "Delete"; } }, 3500);
-        return;
-      }
-      const tr = b.closest("tr[data-id]");
-      b.blur();
-      store.remove(coll, tr.getAttribute("data-id"));
+      if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Confirm"; setTimeout(() => { if (b.isConnected) { b.classList.remove("armed"); b.textContent = "Delete"; } }, 3500); return; }
+      b.blur(); store.remove(c, b.closest("tr[data-id]").getAttribute("data-id"));
     });
   });
-
-  function isoToday() { return tY + "-" + String(tM + 1).padStart(2, "0") + "-" + String(T.getDate()).padStart(2, "0"); }
-  $("addPlacement").addEventListener("click", () => {
-    const id = store.newId("placements");
-    const last = S.placements[S.placements.length - 1];
-    store.put("placements", id, { client: "New client", role: "", start: isoToday(), end: "", bill: last ? num(last.bill) : 0, pay: last ? num(last.pay) : 0, delay: 0, example: false })
-      .then(() => setTimeout(() => { const i = document.querySelector('#tblPlacements tr[data-id="' + id + '"] input'); if (i) { i.focus(); i.select(); } }, 60));
+  const BLANK = {
+    invoices: () => ({ client: "", month: idxYm(tIdx - 1), months: 1, half: "", period: "", amount: null, sent: todayIso, due: "", paid: "", received: null, via: "", note: "", estimate: false }),
+    clients: () => ({ name: "New client", group: "", billing: "after", cadence: "monthly", day: 30, via: "Wise", active: true, forecast: null, note: "" }),
+    staff: () => ({ name: "New staff member", client: "", rate: null, hours: 176, fixed: null, start: idxYm(tIdx), end: "", note: "" }),
+    payroll: () => ({ month: idxYm(tIdx - 1), amount: null, note: "" }),
+    expenses: () => ({ name: "New expense", amount: null, freq: "monthly", date: idxYm(tIdx) + "-01", note: "" })
+  };
+  document.querySelectorAll("[data-add]").forEach((b) => b.addEventListener("click", () => {
+    const c = b.getAttribute("data-add"), id = store.newId(c);
+    if (c === "invoices") { $("f-status").value = "recent"; $("f-client").value = ""; }
+    store.put(c, id, BLANK[c]()).then(() => setTimeout(() => { const i = document.querySelector("#tbl-" + c + ' tr[data-id="' + id + '"] input'); if (i) { i.scrollIntoView({ block: "center" }); i.focus(); } }, 80));
+  }));
+  ["f-status", "f-client"].forEach((id) => $(id).addEventListener("change", () => renderTables()));
+  document.addEventListener("click", (ev) => {
+    const b = ev.target.closest && ev.target.closest("[data-markpaid]"); if (!b || !S.canWrite) return;
+    const inv = S.invoices.find((i) => i.id === b.getAttribute("data-markpaid")); if (!inv) return;
+    const o = Object.assign({}, inv); delete o.id; o.paid = todayIso; if (o.received == null || o.received === "") o.received = num(o.amount); o.estimate = false;
+    store.put("invoices", inv.id, o); toast("Marked " + inv.client + " " + (inv.period || "") + " as paid today.");
   });
-  $("addExpense").addEventListener("click", () => {
-    const id = store.newId("expenses");
-    store.put("expenses", id, { name: "New expense", amount: 0, freq: "monthly", date: isoToday().slice(0, 8) + "01", example: false })
-      .then(() => setTimeout(() => { const i = document.querySelector('#tblExpenses tr[data-id="' + id + '"] input'); if (i) { i.focus(); i.select(); } }, 60));
-  });
-
-  // Settings inputs
-  document.querySelectorAll("[data-set]").forEach((inp) => {
-    inp.addEventListener("change", () => {
-      if (!S.canWrite) return;
-      const k = inp.getAttribute("data-set");
-      const next = Object.assign({}, S.settings); delete next.id;
-      if (inp.type === "checkbox") next[k] = inp.checked;
-      else if (inp.type === "number") next[k] = inp.value === "" ? null : num(inp.value);
-      else next[k] = inp.value.trim() || "$";
-      store.put("settings", "main", next);
-    });
-  });
-
-  $("year").addEventListener("change", (e) => { S.year = +e.target.value; render(); });
-
-  // Tabs
+  document.querySelectorAll("[data-set]").forEach((inp) => inp.addEventListener("change", () => {
+    if (!S.canWrite) return;
+    const k = inp.getAttribute("data-set"), next = Object.assign({}, S.settings); delete next.id;
+    next[k] = inp.type === "checkbox" ? inp.checked : inp.type === "number" ? numOrNull(inp.value) : (inp.value.trim() || "$");
+    store.put("settings", SETTINGS_ID, next);
+  }));
   document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach((x) => {
-      const on = x === t; x.setAttribute("aria-selected", on ? "true" : "false");
-      $(x.getAttribute("aria-controls")).hidden = !on;
-    });
+    document.querySelectorAll(".tab").forEach((x) => { const on = x === t; x.setAttribute("aria-selected", on ? "true" : "false"); $(x.getAttribute("aria-controls")).hidden = !on; });
   }));
 
-  /* ---------- CSV import ---------- */
-  function parseCSV(text) {
-    const delim = text.indexOf("\t") >= 0 ? "\t" : ",";
-    const rows = []; let row = [], f = "", q = false;
-    for (let i = 0; i < text.length; i++) {
-      const ch = text[i];
-      if (q) { if (ch === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += ch; continue; }
-      if (ch === '"') q = true;
-      else if (ch === delim) { row.push(f); f = ""; }
-      else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
-      else f += ch;
-    }
-    if (f !== "" || row.length) { row.push(f); rows.push(row); }
-    return rows.map((r) => r.map((c) => c.trim())).filter((r) => r.some((c) => c));
-  }
-  function normDate(s) {
-    if (!s) return "";
-    let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/); if (m) return m[1] + "-" + m[2].padStart(2, "0") + "-" + m[3].padStart(2, "0");
-    m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/); if (m) { const y = m[3].length === 2 ? "20" + m[3] : m[3]; return y + "-" + m[1].padStart(2, "0") + "-" + m[2].padStart(2, "0"); }
-    const d = new Date(s); if (!isNaN(d)) return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-    return null;
-  }
-  function money2num(s) { return num(String(s || "").replace(/[^0-9.\-]/g, "")); }
-  $("importBtn").addEventListener("click", async () => {
-    if (!S.canWrite) return;
-    const rows = parseCSV($("csvIn").value);
-    if (rows.length && /client/i.test(rows[0][0] || "")) rows.shift();
-    const good = [], bad = [];
-    rows.forEach((r, i) => {
-      const start = normDate(r[2]), end = normDate(r[3] || "");
-      if (!r[0] || !start || end === null) { bad.push(i + 1); return; }
-      good.push({ client: r[0], role: r[1] || "", start, end: end || "", bill: money2num(r[4]), pay: money2num(r[5]), delay: money2num(r[6]), example: false });
-    });
-    if (!good.length) { $("importMsg").textContent = "No rows imported. Each row needs a client name and a start date."; return; }
-    $("importBtn").disabled = true; $("importMsg").textContent = "Importing " + good.length + "…";
-    for (const g of good) await store.put("placements", store.newId("placements"), g);
-    $("importBtn").disabled = false; $("csvIn").value = "";
-    $("importMsg").textContent = "Imported " + plural(good.length, "placement") + (bad.length ? ". Skipped line " + bad.join(", ") + " (missing client or a date I couldn't read)." : ".");
-  });
-
-  /* ---------- example data (written only when someone clicks the button) ---------- */
-  function examples() {
-    const P = [
-      ["Brightsmile Dental", "Executive assistant", "2024-02-05", "", 1400, 800, 0],
-      ["Northpeak Realty", "Admin assistant", "2024-04-15", "2025-03-31", 1200, 700, 10],
-      ["Harbor Fitness", "Social media assistant", "2024-06-03", "2024-12-20", 1100, 650, 25],
-      ["Lumen Law", "Legal assistant", "2024-09-02", "", 1800, 1000, 14],
-      ["Northpeak Realty", "Transaction coordinator", "2025-01-06", "", 1500, 850, 10],
-      ["Cedar Clinic", "Medical biller", "2025-02-10", "2025-08-29", 1600, 900, 35],
-      ["Orbit Ecom", "Customer support", "2025-03-03", "", 1000, 550, 5],
-      ["Orbit Ecom", "Customer support", "2025-05-12", "2026-02-27", 1000, 550, 5],
-      ["Vale Accounting", "Bookkeeper", "2025-07-01", "", 1700, 950, 0],
-      ["Harbor Fitness", "Content assistant", "2025-10-06", "2026-04-30", 1100, 650, 25],
-      ["Brightsmile Dental", "Receptionist", "2026-01-12", "", 1200, 700, 0],
-      ["Quill Agency", "Graphic designer", "2026-02-02", "", 1600, 900, 21],
-      ["Lumen Law", "Intake specialist", "2026-04-06", "2026-08-14", 1300, 750, 14],
-      ["Summit Roofing", "Appointment setter", "2026-05-18", "", 1300, 720, 45],
-      ["Vale Accounting", "Payroll assistant", "2026-07-06", "", 1500, 850, 0],
-      ["Pinecone Pets", "Ecommerce assistant", "2026-09-01", "", 1100, 600, 7]
-    ].map((r) => ({ client: r[0], role: r[1], start: r[2], end: r[3], bill: r[4], pay: r[5], delay: r[6], example: true }));
-    const X = [
-      ["Software & tools", 350, "monthly", "2024-01-01"],
-      ["Recruiting ads", 400, "monthly", "2024-01-01"],
-      ["Bookkeeping", 250, "monthly", "2024-01-01"],
-      ["Payment processing fees", 180, "monthly", "2024-01-01"],
-      ["Business insurance", 1800, "yearly", "2025-03-01"],
-      ["Website redesign", 2500, "once", "2026-11-01"]
-    ].map((r) => ({ name: r[0], amount: r[1], freq: r[2], date: r[3], example: true }));
-    return { P, X };
-  }
-  $("loadExamples").addEventListener("click", async () => {
-    if (!S.canWrite) return;
-    $("loadExamples").disabled = true;
-    const { P, X } = examples();
-    for (const p of P) await store.put("placements", store.newId("placements"), p);
-    for (const x of X) await store.put("expenses", store.newId("expenses"), x);
-    if (!S.settings || S.settings.reserveNow == null) await store.put("settings", "main", Object.assign({}, S.settings, { reserveNow: 3000 }));
-  });
-  document.addEventListener("click", async (ev) => {
-    if (!ev.target.closest || !ev.target.closest("#clearExamples")) return;
-    const b = ev.target.closest("#clearExamples");
-    if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Click again to remove all example rows"; return; }
-    b.disabled = true;
-    const ex = S.placements.filter((p) => p.example).map((p) => ["placements", p.id]).concat(S.expenses.filter((x) => x.example).map((x) => ["expenses", x.id]));
-    for (const [c, id] of ex) await store.remove(c, id);
-    toast("Example rows removed. Add your own placements below.");
-  });
-
-  /* ---------- resize ---------- */
   let rz;
   if ("ResizeObserver" in window) {
     let lastW = 0;
-    new ResizeObserver((ents) => {
-      const w = Math.round(ents[0].contentRect.width);
-      if (w === lastW) return; lastW = w;
-      clearTimeout(rz); rz = setTimeout(() => { if (M) renderDash(); }, 120);
-    }).observe(document.querySelector(".wrap"));
+    new ResizeObserver((e) => { const w = Math.round(e[0].contentRect.width); if (w === lastW) return; lastW = w; clearTimeout(rz); rz = setTimeout(() => { if (M) renderDash(); }, 120); }).observe(document.querySelector(".wrap"));
   }
-
   render();
   store.init();
 })();

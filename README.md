@@ -20,4 +20,4 @@ Requires Python 3.9 or newer. Nothing else to install.
 
 ## Income & Reserve Planner
 
-`dashboard/income-planner.html` is a separate tool for the placement business: it forecasts the year's income, counts hires and exits per year, tracks what clients pay and how late, and works out how much cash to hold so staff get paid even when clients pay late. Open it in a browser; when opened from a local file, it saves your entries in that browser only.
+`dashboard/income-planner.html` is a separate tool for the placement business. It works from invoices, clients, staff and monthly payroll: it forecasts the year's income by month worked, flags invoices that look missing, lists who still owes you, shows how late each client pays compared with staff payday, counts hires and exits, and works out how much cash to hold so staff get paid even when clients pay late. Open it in a browser; when opened from a local file, it saves your entries in that browser only. No financial data is stored in this repository.
