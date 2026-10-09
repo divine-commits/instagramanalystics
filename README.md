@@ -13,6 +13,7 @@ No scraping and no Instagram password. Your access token lives only in `.env` on
 | `lab refresh` | Renew the token for another 60 days (token must be at least 24 hours old and not yet expired) |
 | `lab recent` | List your 10 most recent posts |
 | `lab test <link>` | Test one post: is it in the media list, which Insights metrics come back |
+| `lab trials [N]` | Go through your trial reels: views, reach, likes, comments, shares, saves and average watch time for each, saved as JSON and CSV in `reports/`. Scans your whole media list, or only the newest N posts |
 
 On Windows type `lab …`; on Mac type `./lab …` from inside this folder.
 

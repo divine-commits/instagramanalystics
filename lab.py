@@ -8,10 +8,12 @@ Phase 1 commands (setup and testing):
   lab refresh          renew your token for another 60 days
   lab recent [N]       list your N most recent posts (default 10)
   lab test <link>      trial-reel / metric test for one post
+  lab trials [N]       go through your trial reels (scans N posts, default all)
 
 Uses only the Python standard library, so there's nothing to install.
 """
 
+import csv
 import getpass
 import json
 import os
@@ -48,6 +50,12 @@ CANDIDATE_METRICS = [
     "total_interactions", "follows", "profile_visits", "profile_activity",
     "ig_reels_avg_watch_time", "ig_reels_video_view_total_time",
     "reels_skip_rate", "skip_rate", "reposts", "navigation", "replies",
+]
+
+# Metrics `lab trials` pulls for every trial reel, in table order.
+TRIAL_METRICS = [
+    "views", "reach", "likes", "comments", "shares", "saved",
+    "total_interactions", "ig_reels_avg_watch_time",
 ]
 
 
@@ -366,6 +374,111 @@ def cmd_test(args):
     print("Please copy everything above (from 'Looking for post') and paste it back to me.\n")
 
 
+def fetch_insights(media_id, token, metrics):
+    """Ask for all metrics in one call; if Instagram rejects one, fall back
+    to asking for each separately so the others still come through."""
+    def value_of(entry):
+        vals = entry.get("values")
+        return vals[0].get("value") if vals else entry.get("total_value", {}).get("value")
+
+    try:
+        r = api_get(f"{media_id}/insights", {"metric": ",".join(metrics)}, token)
+        return {e["name"]: value_of(e) for e in r.get("data", [])}
+    except ApiError:
+        pass
+    out = {}
+    for m in metrics:
+        try:
+            r = api_get(f"{media_id}/insights", {"metric": m}, token)
+            out[m] = value_of((r.get("data") or [{}])[0])
+        except ApiError:
+            out[m] = None
+    return out
+
+
+def cmd_trials(args):
+    n = int(args[0]) if args else None
+    env = load_env()
+    token = get_token(env)
+    _SECRETS.append(token)
+
+    print("\nGoing through your posts to find trial reels…")
+    fields = ["id", "shortcode", "permalink", "media_product_type", "timestamp", "caption", "trial_params"]
+    trial_field_in_list = True
+    try:
+        api_get("me/media", {"fields": ",".join(fields), "limit": 1}, token)
+    except ApiError:
+        # trial_params rejected in the list call; look it up reel by reel instead
+        fields.remove("trial_params")
+        trial_field_in_list = False
+
+    reels, scanned = [], 0
+    try:
+        for item in iter_media(token, fields):
+            scanned += 1
+            if item.get("media_product_type") == "REELS":
+                reels.append(item)
+            if n and scanned >= n:
+                break
+    except ApiError as e:
+        die(f"❌ Couldn't read your media list: {e}")
+
+    trials = []
+    for item in reels:
+        tp = item.get("trial_params")
+        if not trial_field_in_list:
+            tp = fetch_fields(item["id"], token, ["id", "trial_params"]).get("trial_params")
+        if tp:
+            item["trial_params"] = tp
+            trials.append(item)
+
+    print(f"Checked {scanned} posts, {len(reels)} of them reels, {len(trials)} trial reels.\n")
+    if not trials:
+        print("No trial reels came back from Instagram's API.")
+        print("If you know you have some, run  lab test <link>  on one so we can see why it isn't listed.\n")
+        return
+
+    rows = []
+    for i, item in enumerate(trials, 1):
+        print(f"  pulling Insights {i}/{len(trials)}…", end="\r")
+        rows.append({
+            "id": item["id"],
+            "posted": manila(item["timestamp"]),
+            "permalink": item.get("permalink"),
+            "caption": (item.get("caption") or "").split("\n")[0][:60],
+            "graduation": (item["trial_params"] or {}).get("graduation_strategy"),
+            **fetch_insights(item["id"], token, TRIAL_METRICS),
+        })
+    print(" " * 40, end="\r")
+
+    def num(v):
+        return "—" if v is None else f"{v:,}"
+
+    def watch(ms):
+        return "—" if ms is None else f"{ms / 1000:.1f}s"
+
+    print(f"{'Posted (Manila)':<17} {'Views':>8} {'Reach':>8} {'Likes':>6} {'Cmts':>5} "
+          f"{'Shares':>6} {'Saves':>6} {'Avg watch':>9}  Caption")
+    for r in sorted(rows, key=lambda r: r["posted"], reverse=True):
+        print(f"{r['posted']:<17} {num(r['views']):>8} {num(r['reach']):>8} {num(r['likes']):>6} "
+              f"{num(r['comments']):>5} {num(r['shares']):>6} {num(r['saved']):>6} "
+              f"{watch(r['ig_reels_avg_watch_time']):>9}  {r['caption']}")
+        print(f"{'':<17} {r['permalink']}  graduation={r['graduation']}")
+
+    stamp = datetime.now(MANILA).strftime("%Y%m%d-%H%M")
+    REPORTS_DIR.mkdir(exist_ok=True)
+    json_path = REPORTS_DIR / f"trials-{stamp}.json"
+    json_path.write_text(json.dumps({"checked_at": datetime.now(MANILA).isoformat(), "posts_scanned": scanned,
+                                     "trial_reels": rows}, indent=2, ensure_ascii=False), encoding="utf-8")
+    csv_path = REPORTS_DIR / f"trials-{stamp}.csv"
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+    print(f"\nSaved to {json_path.relative_to(HERE)} and {csv_path.relative_to(HERE)} (the CSV opens in Excel/Sheets).")
+    print("Paste the table above back to me and I'll go through the results with you.\n")
+
+
 def save_report(code, report):
     REPORTS_DIR.mkdir(exist_ok=True)
     path = REPORTS_DIR / f"test-{code}-{datetime.now(MANILA).strftime('%Y%m%d-%H%M')}.json"
@@ -375,7 +488,7 @@ def save_report(code, report):
 
 COMMANDS = {
     "setup": cmd_setup, "check": cmd_check, "refresh": cmd_refresh,
-    "recent": cmd_recent, "test": cmd_test,
+    "recent": cmd_recent, "test": cmd_test, "trials": cmd_trials,
 }
 
 
