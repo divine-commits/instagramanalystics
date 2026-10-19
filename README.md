@@ -22,8 +22,14 @@ Requires Python 3.9 or newer. Nothing else to install.
 
 Turns your own clips into silent 9:16 reels (1080x1920, 7 seconds max, no audio track) with text on top, ready for you to add music in Instagram.
 
-1. Put your clips in `reels/clips/`
-2. `reels/plan.csv` already has all 60 reels written (2 a day from 2026-10-20 to 2026-11-18): AM = your story (@thenotsodivine voice: lowercase hooks, no on-screen CTA), PM = alternating Filipino talent / clients (Staffed). Each has its hook text, a caption with CTA, and a `vibe` for picking a clip. Fill in the `clip` column with the file name for each one. Optional: where to start in it, the hook text (`text1`) and the second line (`text2`, shown from the halfway point). Use `|` inside text to force a line break.
-3. Run `python reels/make_reels.py` (or `python reels/make_reels.py 1-10 --preview` for a few, plus still previews)
+`reels/plan.csv` has all 60 reels (2 a day from 2026-10-20 to 2026-11-18): AM = your story (@thenotsodivine voice: lowercase hooks, no on-screen CTA), PM = alternating Filipino talent / clients (Staffed). Each row has the hook text, a caption with CTA, and the clip picked for it from your Google Drive (`folder`, `clip` file name, `drive_id`).
 
-Finished reels go in `reels/out/`. Needs Pillow (`pip install pillow`) and ffmpeg.
+On Windows, if Google Drive for desktop is installed, point it at the two shared folders:
+
+```
+reels --source "G:\My Drive\Vlog" --source "G:\My Drive\Divine Personal Brand"
+```
+
+It finds each clip by file name, cuts 7 seconds from the `start` second, crops to 9:16, fixes HDR phone colours, adds the text and removes the audio. Add reel numbers to make just some (`reels 1-5 --source ...`) and `--preview` for a still of each. Finished reels go in `reels/out/`.
+
+Needs Python, Pillow (installed automatically) and ffmpeg (`winget install Gyan.FFmpeg`). On Mac: `python3 reels/make_reels.py --source ...`.

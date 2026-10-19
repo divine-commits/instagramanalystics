@@ -13,6 +13,8 @@ How to use:
   3. Run:  python reels/make_reels.py            (all rows)
            python reels/make_reels.py 1-5        (rows with id 1 to 5)
            python reels/make_reels.py --preview  (also saves a still per reel)
+           python reels/make_reels.py --source "G:/My Drive/Vlog"
+                 (finds each clip by file name anywhere in that folder)
   Finished reels land in reels/out/
 
 plan.csv columns:
@@ -21,7 +23,7 @@ plan.csv columns:
   slot      AM or PM, only used in the file name
   pillar    story / talent / clients (just for planning)
   vibe      the kind of clip that suits this reel (just for planning)
-  clip      file name inside reels/clips/
+  clip      file name, in reels/clips/ or anywhere under a --source folder
   start     second in the clip to start from (blank = 0)
   length    reel length in seconds (blank = 7, never more than 7)
   text1     hook text, shown from the start
@@ -124,31 +126,76 @@ def clip_duration(path):
     return float(out.stdout.strip())
 
 
-def render(row, font, tmp, preview):
+IMAGE_EXT = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def find_clip(name, sources):
+    """Look for the clip in reels/clips/ first, then anywhere under each --source folder."""
+    direct = CLIPS / name
+    if direct.exists():
+        return direct
+    for src in sources:
+        for hit in Path(src).rglob(name):
+            return hit
+    return None
+
+
+def color_transfer(path):
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+         "stream=color_transfer", "-of", "default=nw=1:nk=1", str(path)],
+        capture_output=True, text=True)
+    return out.stdout.strip()
+
+
+def has_filter(name):
+    out = subprocess.run(["ffmpeg", "-hide_banner", "-filters"],
+                         capture_output=True, text=True)
+    return f" {name} " in out.stdout
+
+
+def render(row, font, tmp, preview, sources=()):
     rid = row["id"].strip()
-    if not (row.get("clip") or "").strip():
+    name_in_plan = (row.get("clip") or "").strip()
+    if not name_in_plan:
         return False                    # slot not filled in yet
-    clip = CLIPS / row["clip"].strip()
-    if not clip.exists():
-        print(f"  #{rid}: clip not found: {clip.name} (skipped)")
+    clip = find_clip(name_in_plan, sources)
+    if clip is None:
+        print(f"  #{rid}: clip not found: {name_in_plan} (skipped)")
         return False
+    is_image = clip.suffix.lower() in IMAGE_EXT
 
     start = float(row.get("start") or 0)
     length = min(float(row.get("length") or MAX_LEN), MAX_LEN)
-    have = clip_duration(clip) - start
-    if have <= 0.5:
-        print(f"  #{rid}: start {start}s is past the end of {clip.name} (skipped)")
-        return False
-    length = min(length, have)
+    if not is_image:
+        have = clip_duration(clip) - start
+        if have <= 0.5:
+            print(f"  #{rid}: start {start}s is past the end of {clip.name} (skipped)")
+            return False
+        length = min(length, have)
 
     text1 = (row.get("text1") or "").strip()
     text2 = (row.get("text2") or "").strip()
     half = round(length / 2, 2)
 
-    inputs = ["-ss", str(start), "-t", str(length), "-i", str(clip)]
-    # Scale to fill 9:16, centre-crop, lock frame rate and pixel format.
-    chain = (f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase,"
-             f"crop={W}:{H},fps={FPS},setsar=1,format=yuv420p[v0]")
+    if is_image:
+        # A still (used for previews): slow push-in so it still feels like video.
+        frames = int(length * FPS)
+        inputs = ["-loop", "1", "-t", str(length), "-i", str(clip)]
+        chain = (f"[0:v]scale={W*2}:{H*2}:force_original_aspect_ratio=increase,"
+                 f"crop={W*2}:{H*2},zoompan=z='1+0.06*on/{frames}':d=1:"
+                 f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS},"
+                 f"setsar=1,format=yuv420p[v0]")
+    else:
+        inputs = ["-ss", str(start), "-t", str(length), "-i", str(clip)]
+        # iPhone/Android "HDR" video looks washed out unless it's converted to normal colour.
+        tonemap = ""
+        if color_transfer(clip) in ("arib-std-b67", "smpte2084") and has_filter("zscale"):
+            tonemap = ("zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,"
+                       "tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,")
+        # Scale to fill 9:16, centre-crop, lock frame rate and pixel format.
+        chain = (f"[0:v]{tonemap}scale={W}:{H}:force_original_aspect_ratio=increase,"
+                 f"crop={W}:{H},fps={FPS},setsar=1,format=yuv420p[v0]")
     last = "v0"
     beats = []
     if text1:
@@ -205,6 +252,11 @@ def main():
     args = sys.argv[1:]
     preview = "--preview" in args
     args = [a for a in args if a != "--preview"]
+    sources = []
+    while "--source" in args:
+        i = args.index("--source")
+        sources.append(args[i + 1])
+        del args[i:i + 2]
     wanted = parse_range(args[0]) if args else None
 
     with PLAN.open(encoding="utf-8-sig", newline="") as f:
@@ -217,7 +269,7 @@ def main():
     done = 0
     with tempfile.TemporaryDirectory() as tmp:
         for row in rows:
-            done += render(row, font, tmp, preview)
+            done += render(row, font, tmp, preview, sources)
     print(f"Made {done} of {len(rows)} reels in {OUT}")
 
 
