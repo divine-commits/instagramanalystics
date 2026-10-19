@@ -1,61 +1,181 @@
-id,date,slot,clip,start,length,text1,text2,caption
-1,2026-10-20,AM,,,,,,
-2,2026-10-20,PM,,,,,,
-3,2026-10-21,AM,,,,,,
-4,2026-10-21,PM,,,,,,
-5,2026-10-22,AM,,,,,,
-6,2026-10-22,PM,,,,,,
-7,2026-10-23,AM,,,,,,
-8,2026-10-23,PM,,,,,,
-9,2026-10-24,AM,,,,,,
-10,2026-10-24,PM,,,,,,
-11,2026-10-25,AM,,,,,,
-12,2026-10-25,PM,,,,,,
-13,2026-10-26,AM,,,,,,
-14,2026-10-26,PM,,,,,,
-15,2026-10-27,AM,,,,,,
-16,2026-10-27,PM,,,,,,
-17,2026-10-28,AM,,,,,,
-18,2026-10-28,PM,,,,,,
-19,2026-10-29,AM,,,,,,
-20,2026-10-29,PM,,,,,,
-21,2026-10-30,AM,,,,,,
-22,2026-10-30,PM,,,,,,
-23,2026-10-31,AM,,,,,,
-24,2026-10-31,PM,,,,,,
-25,2026-11-01,AM,,,,,,
-26,2026-11-01,PM,,,,,,
-27,2026-11-02,AM,,,,,,
-28,2026-11-02,PM,,,,,,
-29,2026-11-03,AM,,,,,,
-30,2026-11-03,PM,,,,,,
-31,2026-11-04,AM,,,,,,
-32,2026-11-04,PM,,,,,,
-33,2026-11-05,AM,,,,,,
-34,2026-11-05,PM,,,,,,
-35,2026-11-06,AM,,,,,,
-36,2026-11-06,PM,,,,,,
-37,2026-11-07,AM,,,,,,
-38,2026-11-07,PM,,,,,,
-39,2026-11-08,AM,,,,,,
-40,2026-11-08,PM,,,,,,
-41,2026-11-09,AM,,,,,,
-42,2026-11-09,PM,,,,,,
-43,2026-11-10,AM,,,,,,
-44,2026-11-10,PM,,,,,,
-45,2026-11-11,AM,,,,,,
-46,2026-11-11,PM,,,,,,
-47,2026-11-12,AM,,,,,,
-48,2026-11-12,PM,,,,,,
-49,2026-11-13,AM,,,,,,
-50,2026-11-13,PM,,,,,,
-51,2026-11-14,AM,,,,,,
-52,2026-11-14,PM,,,,,,
-53,2026-11-15,AM,,,,,,
-54,2026-11-15,PM,,,,,,
-55,2026-11-16,AM,,,,,,
-56,2026-11-16,PM,,,,,,
-57,2026-11-17,AM,,,,,,
-58,2026-11-17,PM,,,,,,
-59,2026-11-18,AM,,,,,,
-60,2026-11-18,PM,,,,,,
+id,date,slot,pillar,shot_idea,clip,start,length,text1,text2,caption
+1,2026-10-20,AM,story,"Looking out a window, quiet",,,,I learned to be quiet before I learned to be brave.,This is the story of unlearning that.,"I'm going to share my whole story here. The hard parts and the wins. Follow along 🤍
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+2,2026-10-20,PM,talent,Manila skyline or busy street,,,,Filipino talent is world-class.,The world is finally noticing.,"I've seen it every single day. Pinoy talent competes with anyone.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+3,2026-10-21,AM,story,"Old childhood photo, filmed on your phone",,,,Some kids grow up fast because they have to.,I was one of them.,"If you had to grow up too early, I see you.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+4,2026-10-21,PM,clients,"Tired founder at a desk, late",,,,You didn't start a business,to work 80 hours a week.,"Remember why you started. It wasn't this.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+5,2026-10-22,AM,story,"Walking alone, back to camera",,,,Nobody saw what I was carrying as a kid.,"I hid it so well, I almost forgot it.","What we hide as kids doesn't disappear. It waits.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+6,2026-10-22,PM,talent,Working from home with family nearby,,,,You don't need to leave the Philippines,to build a global career.,"Home and a global career. You can have both.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+7,2026-10-23,AM,story,Rain on a window,,,,Survival mode felt normal.,It was all I had ever known.,"It took me years to realise that living on edge isn't normal. It's survival.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+8,2026-10-23,PM,clients,Phone screen glowing in the dark,,,,Still answering emails at 11pm?,"That's a hiring problem, not a you problem.","You don't need more discipline. You need support.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+9,2026-10-24,AM,story,"Sitting quietly, hands holding a mug",,,,The little kid in me still flinches sometimes.,I'm learning to tell that kid: you're safe now.,"Healing is going back for the kid who never got to feel safe.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+10,2026-10-24,PM,talent,"Hands typing, close-up",,,,Working from home isn't luck.,"It's a skill, and it can be learned.","Want to learn what clients look for? Follow along.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+11,2026-10-25,AM,story,Walking down a hallway or street,,,,Childhood trauma doesn't stay in childhood.,It follows you until you face it.,"You can't outrun it. But you can face it. That's where my story turns.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+12,2026-10-25,PM,clients,Clock or calendar close-up,,,,Your time is your most expensive asset.,Stop spending it on tasks someone else can do.,"Make a list of what only YOU can do. Delegate the rest.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+13,2026-10-26,AM,story,Sky / sunrise,,,,As a kid I made myself one promise:,My life would not end the way it started.,"That promise kept me going for years. Save this if you made one too.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+14,2026-10-26,PM,talent,Family moment at home,,,,Your family deserves you home.,Remote work can make that possible.,"No more choosing between providing for them and being with them.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+15,2026-10-27,AM,story,Laptop or desk late at night,,,,Becoming an adult didn't fix it.,It just gave me heavier things to carry.,"Nobody tells you that growing up doesn't automatically heal you.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+16,2026-10-27,PM,clients,"You relaxed, coffee in hand",,,,The best decision I ever made as a founder:,not doing everything myself.,"Letting go was hard. It was also the turning point.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+17,2026-10-28,AM,story,"Commute, view from a car or jeepney",,,,Bills. Burnout. Smiling through all of it.,Nobody knew how close I was to breaking.,"Check on the strong ones. We're often the most tired.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+18,2026-10-28,PM,talent,Laptop at a café,,,,Pinoy hustle plus a global client,= a life you actually choose.,"Your work ethic is your superpower.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+19,2026-10-29,AM,story,"Hands typing fast, close-up",,,,I said yes to everything.,I didn't believe I was allowed to say no.,"People-pleasing is a survival skill. It just stops working when you're an adult.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+20,2026-10-29,PM,clients,Team on a video call,,,,Hiring in the Philippines isn't about cheap.,"It's about skilled, loyal, long-term teammates.","Hire for heart and skill. You'll keep them for years.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+21,2026-10-30,AM,story,"Desk covered in work, late at night",,,,Working hard was how I felt worthy.,Rest felt like failure.,"If rest makes you feel guilty, this one's for you.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+22,2026-10-30,PM,talent,Someone confident on a video call,,,,"Your heart, your skills, your work ethic.",That's what global clients are looking for.,"You already have more than you think.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+23,2026-10-31,AM,story,Staring out a window or at the ceiling,,,,There were months I was just surviving.,Not living. Just getting through the day.,"If you're in survival mode right now, you're not alone.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+24,2026-10-31,PM,clients,Calendar with free time / clearing a schedule,,,,What would you do with 20 extra hours a week?,The right hire gives you that.,"Tell me in the comments. What would you do first?
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+25,2026-11-01,AM,story,Looking in a mirror,,,,I kept waiting for someone to save me.,Then I realised it had to be me.,"No one was coming. So I came for myself.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+26,2026-11-01,PM,talent,"Team working, screens and laptops",,,,Stop thinking you're 'just a VA'.,You're the reason businesses grow.,"VAs keep businesses running. Own that.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+27,2026-11-02,AM,story,Turning pages of a book or journal,,,,"If you're in the hard chapter right now,","remember it's a chapter, not the whole book.","Send this to someone who needs it today 🤍
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+28,2026-11-02,PM,clients,Head in hands at a desk,,,,Burnt out business owner?,You don't need more hustle. You need a team.,"Hustle got you here. A team gets you further.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+29,2026-11-03,AM,story,Opening a door / stepping outside,,,,The turning point wasn't loud.,It was one quiet decision to choose myself.,"Big changes usually start with one small, quiet choice.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+30,2026-11-03,PM,talent,"You with a team member, smiling",,,,I don't just place people in jobs.,I help them build their dream life.,"This is the part of my work I love most.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+31,2026-11-04,AM,story,Walking forward on a road or path,,,,Healing isn't a straight line.,Some days I still go backwards. I keep walking.,"Progress, not perfection. Still walking.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+32,2026-11-04,PM,clients,You at a whiteboard or planning,,,,"Delegate the tasks, not the vision.",Your team handles the rest.,"You lead. They execute. Everyone wins.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+33,2026-11-05,AM,story,Writing in a journal,,,,I started asking myself one question:,What if I built my life on purpose?,"That question changed everything. What would your life look like if you designed it?
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+34,2026-11-05,PM,talent,Opening a laptop for the first time,,,,No remote work experience yet?,Everyone starts somewhere. Start now.,"Your first step doesn't need to be perfect. It needs to happen.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+35,2026-11-06,AM,story,Walking toward the camera,,,,I stopped running from my story.,I started building something with it.,"Your past can be the foundation, not the ceiling.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+36,2026-11-06,PM,clients,"Walking outdoors, phone away",,,,"Your business should give you freedom,",not take it away.,"If your business owns you, it's time to build the team.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+37,2026-11-07,AM,story,"Making coffee, slow morning",,,,Boundaries. Hard conversations. Small wins.,That's what rebuilt me.,"Nothing magic. Just small, brave choices, repeated.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+38,2026-11-07,PM,talent,Close-up of focused work,,,,Dear Filipino talent:,You're not cheap labor. You're a skilled professional.,"Know your worth. Then charge it.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+39,2026-11-08,AM,story,"Deep breath outdoors, wind / nature",,,,The first time I said no without guilt,felt like freedom.,"Saying no to others was saying yes to me.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+40,2026-11-08,PM,clients,"Night city lights, then sunrise",,,,A remote team in the Philippines means,work gets done while you sleep.,"Time zones can be your advantage.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+41,2026-11-09,AM,story,"Old family photo, filmed on your phone",,,,Generational cycles end with someone.,I decided it would be me.,"To the cycle breakers: it's heavy work, and it matters.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+42,2026-11-09,PM,talent,Family dinner or kids playing,,,,Work for global clients. Live at home.,Be there for the moments that matter.,"Remote work gave so many of our people their weekends back.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+43,2026-11-10,AM,story,"You working on laptop, good light",,,,Then I built a business from scratch.,"Not to escape my life, but to finally live it.","This is where the story starts to change. Stick around.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+44,2026-11-10,PM,clients,"You talking to camera, no sound",,,,I built my company on one idea:,Clients get their time back. Talent gets their dream life.,"This is the whole mission. Both sides win.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+45,2026-11-11,AM,story,"You smiling, natural light",,,,From survival mode,to building a team and a life I love.,"Same person. Very different life.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+46,2026-11-11,PM,talent,Walking with a laptop bag,,,,The best career move I've seen people make:,betting on themselves.,"Bet on yourself. You've survived harder things.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+47,2026-11-12,AM,story,You on a team call or with your team,,,,The kid who had nothing to hold on to,now helps others build their dream life.,"This is why I do what I do.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+48,2026-11-12,PM,clients,Team working together,,,,You can't scale what you do alone.,Build the team.,"Growth needs people. Let's find yours.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+49,2026-11-13,AM,story,"Calm moment: beach, park or balcony",,,,My biggest win isn't the business.,It's that I finally feel at peace.,"Success looks different when you've lived in chaos.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+50,2026-11-13,PM,talent,Sunset in the Philippines,,,,Your dream life doesn't need a plane ticket.,It needs the right opportunity.,"Build it right here, at home.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+51,2026-11-14,AM,story,"Morning light, opening curtains",,,,I used to dread waking up.,Now I build days I'm excited for.,"Your life can change. Mine did.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+52,2026-11-14,PM,clients,Empty dinner table or family meal,,,,Missing dinners. Missing weekends.,Your business should serve your life.,"Take your evenings back.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+53,2026-11-15,AM,story,Lying down / reading / relaxing,,,,Small win today:,I rested and didn't feel guilty.,"The wins nobody posts about are the biggest ones.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+54,2026-11-15,PM,talent,Team photo or team call grid,,,,We're building more than a team.,We're building futures.,"Every hire is a family whose life changes.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+55,2026-11-16,AM,story,You leading a meeting or talking,,,,Every hard thing I survived,is now a reason I lead with heart.,"My past made me a better leader. I wouldn't trade the lessons.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+56,2026-11-16,PM,clients,Hands passing over a laptop / handshake,,,,The founders who grow fastest,are the ones who let go first.,"Control feels safe. Delegation is what scales.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+57,2026-11-17,AM,story,"Old photo, then you today",,,,To the version of me who almost gave up:,Look at us now.,"Thank you for not quitting, younger me 🤍
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+58,2026-11-17,PM,talent,You pointing or talking to camera,,,,Want to work with global clients?,Follow along. Opportunities are coming.,"Follow so you don't miss when we open new roles.
+
+#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
+59,2026-11-18,AM,story,Walking away into the sun,,,,This isn't the end of my story.,It's where it gets good. Stay.,"30 days of my story. Thank you for being here. The next chapter starts now.
+
+#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
+60,2026-11-18,PM,clients,Sending a DM on your phone,,,,Ready to build your remote team?,DM me 'TEAM'. Let's talk.,"DM me 'TEAM' and I'll show you how we build it.
+
+#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
