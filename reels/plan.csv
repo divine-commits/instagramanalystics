@@ -1,181 +1,289 @@
-id,date,slot,pillar,shot_idea,clip,start,length,text1,text2,caption
-1,2026-10-20,AM,story,"Looking out a window, quiet",,,,I learned to be quiet before I learned to be brave.,This is the story of unlearning that.,"I'm going to share my whole story here. The hard parts and the wins. Follow along 🤍
+id,date,slot,pillar,vibe,clip,start,length,text1,text2,caption
+1,2026-10-20,AM,story,quiet,,,,i learned to read the room before i learned to read,,"growing up i always knew when the mood in the house changed. before anyone said a word.
+you learn that when home doesnt feel safe. you get very good at noticing, and very bad at being noticed.
+i still catch myself doing it. scanning faces. adjusting.
+this page is me unlearning it, out loud.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-2,2026-10-20,PM,talent,Manila skyline or busy street,,,,Filipino talent is world-class.,The world is finally noticing.,"I've seen it every single day. Pinoy talent competes with anyone.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+2,2026-10-20,PM,talent,laptop,,,,i started as a VA at $3 an hour,now nobody on my team starts where i did,"i know what it's like to be at the bottom of the market with no support, figuring it all out alone.
+that's exactly why staffed exists.
+fair pay, on time, and someone in your corner.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-3,2026-10-21,AM,story,"Old childhood photo, filmed on your phone",,,,Some kids grow up fast because they have to.,I was one of them.,"If you had to grow up too early, I see you.
+building a career from home? let's do it scared together @thenotsodivine"
+3,2026-10-21,AM,story,quiet,,,,"""you were such a quiet kid""",quiet was safer,"people say it like it was a personality.
+it wasnt. at home i had to keep up a certain image, or else.
+quiet kids arent always shy. sometimes they're just careful.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-4,2026-10-21,PM,clients,"Tired founder at a desk, late",,,,You didn't start a business,to work 80 hours a week.,"Remember why you started. It wasn't this.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+4,2026-10-21,PM,clients,laptop,,,,hiring isnt the hard part,keeping them is,"the philippines is full of skilled people. finding someone is easy.
+every time someone leaves you pay twice: once to find someone new, once to teach them everything again.
+so dont just ask 'can they do the job?' ask 'what would make them stay?'
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-5,2026-10-22,AM,story,"Walking alone, back to camera",,,,Nobody saw what I was carrying as a kid.,"I hid it so well, I almost forgot it.","What we hide as kids doesn't disappear. It waits.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+5,2026-10-22,AM,story,people,,,,"i used to think loud, confident people were cocky",now i think they just felt safe growing up,"i used to hate people who took up too much space. so sure of themselves. too much.
+now i know better. they were probably allowed to be themselves as kids. they had somewhere safe to be a mess.
+i didnt. so i made myself small.
+im 30 and only now learning to take up space.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-6,2026-10-22,PM,talent,Working from home with family nearby,,,,You don't need to leave the Philippines,to build a global career.,"Home and a global career. You can have both.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+6,2026-10-22,PM,talent,win,,,,"""you're just a VA""",i was 'just a VA' too,"VAs keep businesses running. i was one. i built a whole company from what i learned on those calls.
+never let anyone shrink what you do.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-7,2026-10-23,AM,story,Rain on a window,,,,Survival mode felt normal.,It was all I had ever known.,"It took me years to realise that living on edge isn't normal. It's survival.
+building a career from home? let's do it scared together @thenotsodivine"
+7,2026-10-23,AM,story,quiet,,,,at home i had to keep up an image,or else,"you couldnt be sad. you couldnt be too much. you couldnt make mistakes out loud.
+and the adults around me couldnt be trusted with anything, bec it would go straight to my parents.
+so i kept everything in. it took me years to learn that's not the same as being strong.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-8,2026-10-23,PM,clients,Phone screen glowing in the dark,,,,Still answering emails at 11pm?,"That's a hiring problem, not a you problem.","You don't need more discipline. You need support.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+8,2026-10-23,PM,clients,city,,,,"""i want someone cheap""",cheap usually means still job hunting,"the lowest offer often gets someone who's still applying elsewhere.
+they'll leave the second a better offer comes.
+pay fair, not cheap. it's cheaper in the end.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-9,2026-10-24,AM,story,"Sitting quietly, hands holding a mug",,,,The little kid in me still flinches sometimes.,I'm learning to tell that kid: you're safe now.,"Healing is going back for the kid who never got to feel safe.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+9,2026-10-24,AM,story,walking,,,,the kid who handled everything alone grew up into the adult who still does,,"parents always working. a 4-5 year gap with my sister. you figure things out on your own bec there's no one else around.
+it makes you capable. it also makes you the person who never says when they're struggling.
+still working on that one.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-10,2026-10-24,PM,talent,"Hands typing, close-up",,,,Working from home isn't luck.,"It's a skill, and it can be learned.","Want to learn what clients look for? Follow along.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+10,2026-10-24,PM,talent,win,,,,when a client approves your raise,100% of it goes to you,"at staffed we dont take a cut of raises. not some of it. all of it goes to the person who earned it.
+it's one of the reasons our people stay.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-11,2026-10-25,AM,story,Walking down a hallway or street,,,,Childhood trauma doesn't stay in childhood.,It follows you until you face it.,"You can't outrun it. But you can face it. That's where my story turns.
+building a career from home? let's do it scared together @thenotsodivine"
+11,2026-10-25,AM,story,quiet,,,,"""why didnt you tell anyone?""",who was i supposed to tell,"this is the question people ask when you finally open up.
+the honest answer is there wasnt anyone safe to tell.
+if you were that kid too, i see you.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-12,2026-10-25,PM,clients,Clock or calendar close-up,,,,Your time is your most expensive asset.,Stop spending it on tasks someone else can do.,"Make a list of what only YOU can do. Delegate the rest.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+12,2026-10-25,PM,clients,win,,,,we've never run a single ad,every client came from a referral,"retention is our marketing.
+when people are looked after, they stay. when they stay, clients talk.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-13,2026-10-26,AM,story,Sky / sunrise,,,,As a kid I made myself one promise:,My life would not end the way it started.,"That promise kept me going for years. Save this if you made one too.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+13,2026-10-26,AM,story,night,,,,i slept with the light on way longer than im willing to admit,,"whenever my sister went on work trips, the light stayed on. every night.
+remember this one. it comes back later 🤍
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-14,2026-10-26,PM,talent,Family moment at home,,,,Your family deserves you home.,Remote work can make that possible.,"No more choosing between providing for them and being with them.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+14,2026-10-26,PM,talent,home,,,,you dont need to leave the philippines,to work with clients all over the world,"i grew up in negros. i run a company with clients overseas.
+your career can go global while you stay close to the people you love.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-15,2026-10-27,AM,story,Laptop or desk late at night,,,,Becoming an adult didn't fix it.,It just gave me heavier things to carry.,"Nobody tells you that growing up doesn't automatically heal you.
+building a career from home? let's do it scared together @thenotsodivine"
+15,2026-10-27,AM,story,scenic,,,,"""you have everything, what are you sad about?""",turns out you can have everything and still feel lost,"the business. the properties. the travel.
+and still this feeling of not belonging anywhere.
+in the philippines it's either 'you have so much, you have no excuse' or 'pray about it.'
+both can be true and you can still need someone to talk to.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-16,2026-10-27,PM,clients,"You relaxed, coffee in hand",,,,The best decision I ever made as a founder:,not doing everything myself.,"Letting go was hard. It was also the turning point.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+16,2026-10-27,PM,clients,win,,,,one client trialled one sales rep,now they have twelve,"it started as a test. one person.
+she stayed, did great work, and they kept coming back.
+that's what happens when the first hire works out.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-17,2026-10-28,AM,story,"Commute, view from a car or jeepney",,,,Bills. Burnout. Smiling through all of it.,Nobody knew how close I was to breaking.,"Check on the strong ones. We're often the most tired.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+17,2026-10-28,AM,story,city,,,,30. a business. properties. still no idea what im doing,,"i dont know what i dont know, and i dont know a lot.
+at 30 my parents were married with jobs and two kids. at 30 im googling how to pay taxes.
+maybe none of us actually know what we're doing.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-18,2026-10-28,PM,talent,Laptop at a café,,,,Pinoy hustle plus a global client,= a life you actually choose.,"Your work ethic is your superpower.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+18,2026-10-28,PM,talent,laptop,,,,"""isnt online work unstable?""",she's been with the same client for 3 years,"three years. same client. she knows their systems better than some of their own team.
+stable isnt about being in an office. it's about being looked after.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-19,2026-10-29,AM,story,"Hands typing fast, close-up",,,,I said yes to everything.,I didn't believe I was allowed to say no.,"People-pleasing is a survival skill. It just stops working when you're an adult.
+building a career from home? let's do it scared together @thenotsodivine"
+19,2026-10-29,AM,story,laptop,,,,$3 an hour,minus 3,"december 2020. my first upwork job. $3 an hour, and they took a cut of that too.
+that's where everything started.
+it felt like nothing at the time. it was the whole foundation.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-20,2026-10-29,PM,clients,Team on a video call,,,,Hiring in the Philippines isn't about cheap.,"It's about skilled, loyal, long-term teammates.","Hire for heart and skill. You'll keep them for years.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+20,2026-10-29,PM,clients,people,,,,"""any questions?""",will always get a no. try 'walk me through it',"a lot of filipino professionals grow up with hiya, not wanting to lose face.
+so 'any questions?' gets a polite no, even when there are questions.
+ask them to walk you through how they'll do it instead. you'll hear the gaps.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-21,2026-10-30,AM,story,"Desk covered in work, late at night",,,,Working hard was how I felt worthy.,Rest felt like failure.,"If rest makes you feel guilty, this one's for you.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+21,2026-10-30,AM,story,home,,,,my first boss slept beside me every night,my sister. one bedroom condo. 2020,"march 2020 i quit my job and asked my sister if i could be her assistant.
+we lived in a one bedroom condo in cebu. she paid for everything. i worked on a laptop next to her.
+it honestly felt like some sort of game.
+it was also the start of everything i do now.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-22,2026-10-30,PM,talent,Someone confident on a video call,,,,"Your heart, your skills, your work ethic.",That's what global clients are looking for.,"You already have more than you think.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+22,2026-10-30,PM,talent,home,,,,a late payment isnt a small thing,not when you're supporting a whole family,"a lot of us support more than ourselves.
+so at staffed, pay day means pay day. every time.
+if your client pays late, that's not a you problem.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-23,2026-10-31,AM,story,Staring out a window or at the ceiling,,,,There were months I was just surviving.,Not living. Just getting through the day.,"If you're in survival mode right now, you're not alone.
+building a career from home? let's do it scared together @thenotsodivine"
+23,2026-10-31,AM,story,quiet,,,,"""just pray about it""",i did. i also needed someone to talk to,"mental health isnt something we talk about comfortably anywhere, and even less at home.
+when something's wrong you either 'have no excuse' or you're told to pray.
+faith and help arent opposites. you're allowed both.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-24,2026-10-31,PM,clients,Calendar with free time / clearing a schedule,,,,What would you do with 20 extra hours a week?,The right hire gives you that.,"Tell me in the comments. What would you do first?
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+24,2026-10-31,PM,clients,laptop,,,,skip the screenshot-every-10-minutes software,clear outcomes build more trust,"if you need screenshots to trust someone, you hired the wrong person or set the wrong goals.
+clear outcomes and a short daily report. that's it.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-25,2026-11-01,AM,story,Looking in a mirror,,,,I kept waiting for someone to save me.,Then I realised it had to be me.,"No one was coming. So I came for myself.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+25,2026-11-01,AM,story,city,,,,i spent years trying to look successful so i'd finally feel like i belonged,,"travel. money. being the person who has it together.
+the conventionally successful version of me.
+it didnt fix it. it just made the not belonging look nicer on instagram.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-26,2026-11-01,PM,talent,"Team working, screens and laptops",,,,Stop thinking you're 'just a VA'.,You're the reason businesses grow.,"VAs keep businesses running. Own that.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+26,2026-11-01,PM,talent,laptop,,,,you dont need perfect english,you need to be able to think,"when we screen, i dont care about perfect grammar.
+i care if you can think through a problem and explain it in your own voice.
+resumes are easy to make look good now. thinking isnt.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-27,2026-11-02,AM,story,Turning pages of a book or journal,,,,"If you're in the hard chapter right now,","remember it's a chapter, not the whole book.","Send this to someone who needs it today 🤍
+building a career from home? let's do it scared together @thenotsodivine"
+27,2026-11-02,AM,story,drive,,,,"i got the car, the properties, the business",and still felt like something was missing,"get rich, get successful, get the car, get the house.
+i did the linear thing. and it felt so shallow once i got there.
+that's when i started asking what i actually want, not what im supposed to want.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-28,2026-11-02,PM,clients,Head in hands at a desk,,,,Burnt out business owner?,You don't need more hustle. You need a team.,"Hustle got you here. A team gets you further.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+28,2026-11-02,PM,clients,laptop,,,,their logins should be ready on day one,not day three,"nothing kills a new hire's excitement like waiting two days for access.
+logins ready, one person they can ask anything, check-ins at day 7, 30 and 90.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-29,2026-11-03,AM,story,Opening a door / stepping outside,,,,The turning point wasn't loud.,It was one quiet decision to choose myself.,"Big changes usually start with one small, quiet choice.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+29,2026-11-03,AM,story,fun,,,,"jack of all trades, master of none",good. i dont want to be a master,"everyone says niche down. be known for one thing.
+i dont want to be one thing. i want to try everything, be bad at some of it, and change my mind whenever i want.
+kids do it every week and we call it growing.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-30,2026-11-03,PM,talent,"You with a team member, smiling",,,,I don't just place people in jobs.,I help them build their dream life.,"This is the part of my work I love most.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+30,2026-11-03,PM,talent,quiet,,,,silence isnt always a yes,it's okay to say 'i dont get it yet',"a lot of us grow up with hiya. we dont want to lose face, or make anyone else lose face.
+so we stay quiet and hope it works out.
+asking a question isnt weakness. good clients want to hear it.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-31,2026-11-04,AM,story,Walking forward on a road or path,,,,Healing isn't a straight line.,Some days I still go backwards. I keep walking.,"Progress, not perfection. Still walking.
+building a career from home? let's do it scared together @thenotsodivine"
+31,2026-11-04,AM,story,travel,,,,i used to sleep with the light on,this year i went to europe alone,"told you it'd come back 🤍
+first solo trip. things i couldnt have done five years ago.
+being scared isnt a reason not to go. it's usually the reason to.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-32,2026-11-04,PM,clients,You at a whiteboard or planning,,,,"Delegate the tasks, not the vision.",Your team handles the rest.,"You lead. They execute. Everyone wins.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+32,2026-11-04,PM,clients,city,,,,if your job post reads like five jobs,it's probably two roles,"scope the role before you post it. hours, time zone, one line per task, the soft skills that matter.
+hire for one person, not a unicorn.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-33,2026-11-05,AM,story,Writing in a journal,,,,I started asking myself one question:,What if I built my life on purpose?,"That question changed everything. What would your life look like if you designed it?
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+33,2026-11-05,AM,story,travel,,,,turns out i actually like my own company,,"i used to be scared of being alone. now i rent my own place and travel solo.
+no waiting on anyone. no one to keep up with.
+the thing i was most scared of became the thing i like most about my life.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-34,2026-11-05,PM,talent,Opening a laptop for the first time,,,,No remote work experience yet?,Everyone starts somewhere. Start now.,"Your first step doesn't need to be perfect. It needs to happen.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+34,2026-11-05,PM,talent,laptop,,,,being someone's VA taught me how to run a business,,"calendars. research. websites. calling people. figuring out what the client needs before they say it.
+every task was a lesson i didnt know i was taking.
+your 'small' job is building something bigger than you think.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-35,2026-11-06,AM,story,Walking toward the camera,,,,I stopped running from my story.,I started building something with it.,"Your past can be the foundation, not the ceiling.
+building a career from home? let's do it scared together @thenotsodivine"
+35,2026-11-06,AM,story,travel,,,,solo travel is the first time nobody's mood is mine to manage,,"i grew up so on edge of other people's feelings. always aware when the vibe in the room changed.
+on my own i can pause, nap, walk fast, walk slow, see something or not see something.
+nobody to read. just me.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-36,2026-11-06,PM,clients,"Walking outdoors, phone away",,,,"Your business should give you freedom,",not take it away.,"If your business owns you, it's time to build the team.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+36,2026-11-06,PM,clients,people,,,,dont just ask 'can they do the job?',ask 'what would make them stay?',"most hiring advice is about finding someone.
+i care about finding someone who stays.
+that question changes who you pick and how you treat them after.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-37,2026-11-07,AM,story,"Making coffee, slow morning",,,,Boundaries. Hard conversations. Small wins.,That's what rebuilt me.,"Nothing magic. Just small, brave choices, repeated.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+37,2026-11-07,AM,story,slow,,,,rest isnt sleep,rest is a day nobody else has booked,"most people think rest means sleep.
+for me, rest is a day with nothing scheduled and the freedom to do whatever i want, whenever i want.
+a dream is a dream. you just cant reach it burnt out.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-38,2026-11-07,PM,talent,Close-up of focused work,,,,Dear Filipino talent:,You're not cheap labor. You're a skilled professional.,"Know your worth. Then charge it.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+38,2026-11-07,PM,talent,home,,,,the best VAs i've hired,already had a backup plan for brownouts,"typhoon season is real. power goes out. internet drops.
+the people worth hiring already have a plan: backup internet, a power bank, a café nearby.
+it's one of the first things i ask.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-39,2026-11-08,AM,story,"Deep breath outdoors, wind / nature",,,,The first time I said no without guilt,felt like freedom.,"Saying no to others was saying yes to me.
+building a career from home? let's do it scared together @thenotsodivine"
+39,2026-11-08,AM,story,laptop,,,,the pandemic took my twenties and handed me a career,both are true,"i used to say lockdown stole my twenties. no friendships, no figuring out who i was.
+it also pushed me into working online, which is the only reason i run a business now.
+i only explored what was available at the time. now there's more available.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-40,2026-11-08,PM,clients,"Night city lights, then sunrise",,,,A remote team in the Philippines means,work gets done while you sleep.,"Time zones can be your advantage.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+40,2026-11-08,PM,clients,laptop,,,,a nice chat is a terrible way to hire,same questions. same scorecard. every time,"most founders hire by vibe.
+a structured interview predicts performance more than twice as well as a casual chat.
+write the questions down. score right after. then a small real task, paid if it's long.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-41,2026-11-09,AM,story,"Old family photo, filmed on your phone",,,,Generational cycles end with someone.,I decided it would be me.,"To the cycle breakers: it's heavy work, and it matters.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+41,2026-11-09,AM,story,walking,,,,being an adult isnt having it figured out,it's choosing what not to pass on,"the comments about your body. the 'when are you getting married.' the keeping quiet to keep the peace.
+we were handed a lot of habits.
+growing up is deciding which ones stop with you.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-42,2026-11-09,PM,talent,Family dinner or kids playing,,,,Work for global clients. Live at home.,Be there for the moments that matter.,"Remote work gave so many of our people their weekends back.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+42,2026-11-09,PM,talent,people,,,,i care less about your perfect resume,and more about how you explain things,"four in ten candidates use AI to write their applications now.
+so we ask for a short video instead. your real voice, how you think.
+be yourself. that's the bit that gets hired.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-43,2026-11-10,AM,story,"You working on laptop, good light",,,,Then I built a business from scratch.,"Not to escape my life, but to finally live it.","This is where the story starts to change. Stick around.
+building a career from home? let's do it scared together @thenotsodivine"
+43,2026-11-10,AM,story,win,,,,from $3 an hour on upwork,to running a staffing company,"same laptop energy. very different life.
+now i get to build the kind of place i wish i'd worked for when i started.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-44,2026-11-10,PM,clients,"You talking to camera, no sound",,,,I built my company on one idea:,Clients get their time back. Talent gets their dream life.,"This is the whole mission. Both sides win.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+44,2026-11-10,PM,clients,people,,,,never give feedback in the group chat,"one to one, with the fix","public feedback hits differently when you grew up with hiya.
+private, specific, with the fix. you'll get better work and keep a better person.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-45,2026-11-11,AM,story,"You smiling, natural light",,,,From survival mode,to building a team and a life I love.,"Same person. Very different life.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+45,2026-11-11,AM,story,fun,,,,scarcity to abundance to spending ban,it's a journey,"grew up with 'we cant afford that.' then i could afford things and wanted to experience everything.
+now im on a spending ban bec my boyfriend said i was spending mindlessly.
+he's not wrong. the money changed, the mindset is catching up.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-46,2026-11-11,PM,talent,Walking with a laptop bag,,,,The best career move I've seen people make:,betting on themselves.,"Bet on yourself. You've survived harder things.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+46,2026-11-11,PM,talent,people,,,,remote work can be lonely,"so we build a team, not just a login","working from home doesnt mean working alone.
+people stay where they feel like they belong. so we make sure you do.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-47,2026-11-12,AM,story,You on a team call or with your team,,,,The kid who had nothing to hold on to,now helps others build their dream life.,"This is why I do what I do.
+building a career from home? let's do it scared together @thenotsodivine"
+47,2026-11-12,AM,story,win,,,,"""happy with your choices if it ended today?""",a thousand percent,"could i have done more? sure.
+did i do what was best for me at the time? absolutely.
+life is short. i'd rather fill my cup than wait to feel ready.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-48,2026-11-12,PM,clients,Team working together,,,,You can't scale what you do alone.,Build the team.,"Growth needs people. Let's find yours.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+48,2026-11-12,PM,clients,home,,,,plan for a december bonus,it's a big part of christmas back home,"13th month pay is required for employees in the philippines, not contractors.
+but most people still expect something in december. it's a big deal for families.
+budget for it from day one.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-49,2026-11-13,AM,story,"Calm moment: beach, park or balcony",,,,My biggest win isn't the business.,It's that I finally feel at peace.,"Success looks different when you've lived in chaos.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+49,2026-11-13,AM,story,people,,,,8 year old me needed a safe space,30 year old me is building one,"a place where you can be yourself without keeping up an image.
+that's what this page is turning into. and one day, something in person too.
+you're welcome here as you are.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-50,2026-11-13,PM,talent,Sunset in the Philippines,,,,Your dream life doesn't need a plane ticket.,It needs the right opportunity.,"Build it right here, at home.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+50,2026-11-13,PM,talent,home,,,,"""so what do you actually do?""",help filipinos build careers without leaving home,"the long answer: staffed matches business owners with filipino professionals and stays involved long after the hire.
+the short answer: i help people build the life i was trying to build at $3 an hour.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-51,2026-11-14,AM,story,"Morning light, opening curtains",,,,I used to dread waking up.,Now I build days I'm excited for.,"Your life can change. Mine did.
+building a career from home? let's do it scared together @thenotsodivine"
+51,2026-11-14,AM,story,fun,,,,i used to be terrified of roller coasters,now i buy the fast pass. no time to get scared,"that's kind of how i live now.
+skip the line where you overthink it. just go.
+you'll be scared either way. might as well be on the ride.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-52,2026-11-14,PM,clients,Empty dinner table or family meal,,,,Missing dinners. Missing weekends.,Your business should serve your life.,"Take your evenings back.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+52,2026-11-14,PM,clients,win,,,,"when people are looked after, they stay",and so does everything you taught them,"that's not the soft part of the business. that is the business.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-53,2026-11-15,AM,story,Lying down / reading / relaxing,,,,Small win today:,I rested and didn't feel guilty.,"The wins nobody posts about are the biggest ones.
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+53,2026-11-15,AM,story,fun,,,,my mum turned 60. i turned 30,she had it all figured out. here's me,"married. jobs. two kids. at 30 my parents looked like they had it together.
+me at 30: a business, a spending ban, and absolutely no map.
+we got a blank page instead of a script. im writing it as i go.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-54,2026-11-15,PM,talent,Team photo or team call grid,,,,We're building more than a team.,We're building futures.,"Every hire is a family whose life changes.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+54,2026-11-15,PM,talent,win,,,,your skills are world class,charge like it,"pay fair, not cheap. that's what i tell every client.
+you're not cheap labour. you're a professional who happens to live in the philippines.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-55,2026-11-16,AM,story,You leading a meeting or talking,,,,Every hard thing I survived,is now a reason I lead with heart.,"My past made me a better leader. I wouldn't trade the lessons.
+building a career from home? let's do it scared together @thenotsodivine"
+55,2026-11-16,AM,story,people,,,,the girl who handled everything alone,now has a team that has her back,"for so long i thought asking for help meant failing.
+now i run a company where nobody has to figure it out alone. including me.
+no one builds alone.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-56,2026-11-16,PM,clients,Hands passing over a laptop / handshake,,,,The founders who grow fastest,are the ones who let go first.,"Control feels safe. Delegation is what scales.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+56,2026-11-16,PM,clients,night,,,,agree the hours first,great work doesnt survive the wrong schedule,"we once placed a brilliant designer. the hours the client needed just didnt fit her life, and it showed fast.
+that wasnt a skills problem, it was a scope problem. and we owned it.
+now we ask about hours first. every time.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
-57,2026-11-17,AM,story,"Old photo, then you today",,,,To the version of me who almost gave up:,Look at us now.,"Thank you for not quitting, younger me 🤍
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"
+57,2026-11-17,AM,story,win,,,,"""you've changed""",yeah. on purpose,"i rebranded. rethought. reinvented.
+not bec something was wrong, bec im allowed to.
+you can change your mind mid-step and it's okay. as an adult, it's actually wonderful.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-58,2026-11-17,PM,talent,You pointing or talking to camera,,,,Want to work with global clients?,Follow along. Opportunities are coming.,"Follow so you don't miss when we open new roles.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+58,2026-11-17,PM,talent,people,,,,someone in your corner,who isnt your client,"when something goes wrong at work, who do you call?
+for our people, that's us.
+nobody should have to figure it out alone. i did, and i wouldnt wish it on anyone.
 
-#filipinova #workfromhomeph #remotejobsph #pinoyvirtualassistant #filipinotalent"
-59,2026-11-18,AM,story,Walking away into the sun,,,,This isn't the end of my story.,It's where it gets good. Stay.,"30 days of my story. Thank you for being here. The next chapter starts now.
+building a career from home? let's do it scared together @thenotsodivine"
+59,2026-11-18,AM,story,travel,,,,still figuring it out,let's do it scared together,"30 days of my story. the quiet kid, the $3 an hour, the light on, the solo trip.
+im not done. i dont think anyone ever is.
+thank you for being here.
 
-#healingjourney #mystory #childhoodtrauma #glowup #survivortothriver"
-60,2026-11-18,PM,clients,Sending a DM on your phone,,,,Ready to build your remote team?,DM me 'TEAM'. Let's talk.,"DM me 'TEAM' and I'll show you how we build it.
+feeling lost in adulthood? let's do it scared together @thenotsodivine"
+60,2026-11-18,PM,clients,win,,,,no one builds alone,that's why i built staffed,"i spent years figuring everything out alone. as a kid, as a VA, as a new business owner.
+staffed matches founders with filipino professionals and stays with both of you long after the hire.
+so nobody has to do it alone again.
 
-#remotestaffing #businessowner #delegation #virtualassistant #buildyourteam"
+hiring in the philippines? dm me. happy to just talk it through, even if you dont end up working with us"

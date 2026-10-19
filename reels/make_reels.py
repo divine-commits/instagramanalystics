@@ -20,7 +20,7 @@ plan.csv columns:
   date      posting date (YYYY-MM-DD), only used in the file name
   slot      AM or PM, only used in the file name
   pillar    story / talent / clients (just for planning)
-  shot_idea the kind of footage that suits this reel (just for planning)
+  vibe      the kind of clip that suits this reel (just for planning)
   clip      file name inside reels/clips/
   start     second in the clip to start from (blank = 0)
   length    reel length in seconds (blank = 7, never more than 7)
