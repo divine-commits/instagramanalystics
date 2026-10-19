@@ -17,3 +17,13 @@ No scraping and no Instagram password. Your access token lives only in `.env` on
 On Windows type `lab …`; on Mac type `./lab …` from inside this folder.
 
 Requires Python 3.9 or newer. Nothing else to install.
+
+## Reel maker
+
+Turns your own clips into silent 9:16 reels (1080x1920, 7 seconds max, no audio track) with text on top, ready for you to add music in Instagram.
+
+1. Put your clips in `reels/clips/`
+2. Fill in `reels/plan.csv`: one row per reel (60 slots, 2 a day from 2026-10-20 to 2026-11-18). Pick the clip, where to start in it, the hook text (`text1`) and the second line (`text2`, shown from the halfway point). Use `|` inside text to force a line break.
+3. Run `python reels/make_reels.py` (or `python reels/make_reels.py 1-10 --preview` for a few, plus still previews)
+
+Finished reels go in `reels/out/`. Needs Pillow (`pip install pillow`) and ffmpeg.
