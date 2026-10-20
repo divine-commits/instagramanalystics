@@ -5,3 +5,6 @@ reports/
 logs/
 __pycache__/
 reels/out/
+reels/*.local.csv
+reels/clips/*
+!reels/clips/.gitkeep

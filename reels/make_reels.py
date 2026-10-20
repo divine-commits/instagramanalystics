@@ -27,7 +27,8 @@ plan.csv columns:
   start     second in the clip to start from (blank = 0)
   length    reel length in seconds (blank = 7, never more than 7)
   text1     hook text, shown from the start
-  text2     second text, shown from the halfway point (blank = keep text1)
+  text2     punchline, shown from 2.5s (blank = text1 stays for the whole reel)
+  split     optional: second the punchline appears (default 2.5)
   caption   your post caption (not put on the video, just kept with the plan)
 
 Needs Python 3.9+, Pillow (pip install pillow) and ffmpeg on your PATH.
@@ -101,11 +102,18 @@ def text_card(text, font, path):
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     lines = wrap(draw, text, font)
+    # Long hooks: step the size down so they stay within 4 lines.
+    size = FONT_SIZE
+    while len(lines) > 4 and size > 58 and hasattr(font, "font_variant"):
+        size -= 4
+        font = font.font_variant(size=size)
+        lines = wrap(draw, text, font)
     asc, desc = font.getmetrics()
     line_h = asc + desc + 2 * PAD_Y
     block_h = len(lines) * line_h + (len(lines) - 1) * LINE_GAP
-    # Sit the block a little above the middle of the safe zone.
-    y = SAFE_TOP + int((SAFE_BOTTOM - SAFE_TOP - block_h) * 0.42)
+    # Centre the block in the lower-middle (around 61% down) so it sits under
+    # faces in selfie clips but stays clear of Instagram's caption area.
+    y = min(int(H * 0.61 - block_h / 2), SAFE_BOTTOM - block_h)
     cx = (SAFE_LEFT + SAFE_RIGHT) // 2
     for line in lines:
         tw = draw.textlength(line, font=font)
@@ -176,7 +184,8 @@ def render(row, font, tmp, preview, sources=()):
 
     text1 = (row.get("text1") or "").strip()
     text2 = (row.get("text2") or "").strip()
-    half = round(length / 2, 2)
+    # The second line comes in early (2.5s) so the punchline lands before the loop.
+    half = round(min(float(row.get("split") or 2.5), length / 2), 2)
 
     if is_image:
         # A still (used for previews): slow push-in so it still feels like video.
