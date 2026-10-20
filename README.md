@@ -20,7 +20,7 @@ Requires Python 3.9 or newer. Nothing else to install.
 
 ## Reel maker
 
-Turns your own clips into silent 9:16 reels (1080x1920, 7 seconds max, no audio track) with text on top, ready for you to add music in Instagram.
+Turns your own clips into silent 9:16 reels (1080x1920, 7 seconds max, no audio track) with text on top, ready for you to add music in Instagram. The text is styled like native Instagram text (Figtree Bold, cream, soft shadow, no box, upper third) so it looks hand-made.
 
 `reels/plan.csv` has all 60 reels (2 a day from 2026-10-20 to 2026-11-18): AM = your story (@thenotsodivine voice: lowercase hooks, no on-screen CTA), PM = alternating Filipino talent / clients (Staffed). Each row has the hook text, a caption with CTA, and the clip picked for it from your Google Drive (`folder` and `clip` file name).
 

@@ -56,12 +56,17 @@ MAX_LEN = 7.0
 SAFE_TOP, SAFE_BOTTOM = 260, H - 480
 SAFE_LEFT, SAFE_RIGHT = 90, W - 150
 
-FONT_SIZE = 76
-LINE_GAP = 14
-PAD_X, PAD_Y = 34, 18
-MAX_TEXT_W = SAFE_RIGHT - SAFE_LEFT - 2 * PAD_X
+# Native-looking text, like typing it in the Instagram editor: bold rounded sans,
+# soft cream, a faint shadow, no box, sitting in the upper third above the head.
+FONT_SIZE = 72
+FONT_WEIGHT = 700
+TEXT_COLOR = (254, 252, 230, 255)        # sampled from a real creator reel
+LINE_GAP = 6
+MAX_TEXT_W = 720                         # roughly 2/3 of the screen, like hand-typed text
+TEXT_TOP = 300                           # just under Instagram's top bar
 
 FONT_CANDIDATES = [
+    HERE / "fonts" / "Figtree.ttf",          # closest free match to Instagram Sans
     HERE / "fonts" / "font.ttf",
     HERE / "fonts" / "font.otf",
     Path("/usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf"),
@@ -76,7 +81,12 @@ FONT_CANDIDATES = [
 def load_font():
     for p in FONT_CANDIDATES:
         if p.exists():
-            return ImageFont.truetype(str(p), FONT_SIZE)
+            font = ImageFont.truetype(str(p), FONT_SIZE)
+            try:
+                font.set_variation_by_axes([FONT_WEIGHT])   # variable fonts only
+            except Exception:
+                pass
+            return font
     sys.exit("No bold font found. Put a .ttf at reels/fonts/font.ttf")
 
 
@@ -98,33 +108,33 @@ def wrap(draw, text, font):
 
 
 def text_card(text, font, path):
-    """Transparent 1080x1920 PNG: white text on rounded dark pills, centred."""
+    """Transparent 1080x1920 PNG with the text drawn like native Instagram text."""
+    from PIL import ImageFilter
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     lines = wrap(draw, text, font)
-    # Long hooks: step the size down so they stay within 4 lines.
+    # Very long hooks: step the size down so they stay within 5 lines.
     size = FONT_SIZE
-    while len(lines) > 4 and size > 58 and hasattr(font, "font_variant"):
+    while len(lines) > 5 and size > 60 and hasattr(font, "font_variant"):
         size -= 4
         font = font.font_variant(size=size)
+        try:
+            font.set_variation_by_axes([FONT_WEIGHT])
+        except Exception:
+            pass
         lines = wrap(draw, text, font)
     asc, desc = font.getmetrics()
-    line_h = asc + desc + 2 * PAD_Y
-    block_h = len(lines) * line_h + (len(lines) - 1) * LINE_GAP
-    # Centre the block in the lower-middle (around 61% down) so it sits under
-    # faces in selfie clips but stays clear of Instagram's caption area.
-    y = min(int(H * 0.61 - block_h / 2), SAFE_BOTTOM - block_h)
-    cx = (SAFE_LEFT + SAFE_RIGHT) // 2
-    for line in lines:
-        tw = draw.textlength(line, font=font)
-        x0 = int(cx - tw / 2 - PAD_X)
-        x1 = int(cx + tw / 2 + PAD_X)
-        draw.rounded_rectangle([x0, y, x1, y + line_h], radius=22,
-                               fill=(0, 0, 0, 165))
-        draw.text((cx, y + PAD_Y), line, font=font, fill="white", anchor="mt")
-        y += line_h + LINE_GAP
-    img.save(path)
-
+    line_h = asc + desc + LINE_GAP
+    cx = W // 2
+    # Soft shadow so it reads on bright skies without looking like a sticker.
+    shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    sdraw = ImageDraw.Draw(shadow)
+    for i, line in enumerate(lines):
+        y = TEXT_TOP + i * line_h
+        sdraw.text((cx, y + 3), line, font=font, fill=(0, 0, 0, 110), anchor="ma")
+        draw.text((cx, y), line, font=font, fill=TEXT_COLOR, anchor="ma")
+    shadow = shadow.filter(ImageFilter.GaussianBlur(5))
+    Image.alpha_composite(shadow, img).save(path)
 
 def clip_duration(path):
     out = subprocess.run(
@@ -215,8 +225,7 @@ def render(row, font, tmp, preview, sources=()):
         png = Path(tmp) / f"{rid}_{i}.png"
         text_card(text, font, png)
         inputs += ["-loop", "1", "-t", str(length), "-i", str(png)]
-        fade_in = f"fade=t=in:st={t0}:d=0.25:alpha=1"
-        chain += (f";[{i}:v]format=rgba,{fade_in}[t{i}]"
+        chain += (f";[{i}:v]format=rgba[t{i}]"
                   f";[{last}][t{i}]overlay=0:0:"
                   f"enable='between(t,{t0},{t1})'[v{i}]")
         last = f"v{i}"
