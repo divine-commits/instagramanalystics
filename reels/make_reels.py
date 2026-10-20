@@ -131,9 +131,9 @@ def text_card(text, font, path):
     sdraw = ImageDraw.Draw(shadow)
     for i, line in enumerate(lines):
         y = TEXT_TOP + i * line_h
-        sdraw.text((cx, y + 3), line, font=font, fill=(0, 0, 0, 110), anchor="ma")
+        sdraw.text((cx, y + 3), line, font=font, fill=(0, 0, 0, 160), anchor="ma")
         draw.text((cx, y), line, font=font, fill=TEXT_COLOR, anchor="ma")
-    shadow = shadow.filter(ImageFilter.GaussianBlur(5))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(4))
     Image.alpha_composite(shadow, img).save(path)
 
 def clip_duration(path):
@@ -186,7 +186,10 @@ def render(row, font, tmp, preview, sources=()):
     start = float(row.get("start") or 0)
     length = min(float(row.get("length") or MAX_LEN), MAX_LEN)
     if not is_image:
-        have = clip_duration(clip) - start
+        dur = clip_duration(clip)
+        if dur - start < length:            # short clip: start earlier to keep the full length
+            start = max(0.0, dur - length)
+        have = dur - start
         if have <= 0.5:
             print(f"  #{rid}: start {start}s is past the end of {clip.name} (skipped)")
             return False
