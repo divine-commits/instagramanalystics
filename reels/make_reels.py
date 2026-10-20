@@ -61,7 +61,7 @@ SAFE_LEFT, SAFE_RIGHT = 90, W - 150
 FONT_SIZE = 72
 FONT_WEIGHT = 700
 TEXT_COLOR = (254, 252, 230, 255)        # sampled from a real creator reel
-LINE_GAP = 6
+LINE_SPACING = 1.1                       # line-to-line distance as a multiple of font size
 MAX_TEXT_W = 720                         # roughly 2/3 of the screen, like hand-typed text
 TEXT_TOP = 300                           # just under Instagram's top bar
 
@@ -123,8 +123,8 @@ def text_card(text, font, path):
         except Exception:
             pass
         lines = wrap(draw, text, font)
-    asc, desc = font.getmetrics()
-    line_h = asc + desc + LINE_GAP
+    # Tight leading like Instagram's text tool (about 1.1x the font size).
+    line_h = int(font.size * LINE_SPACING)
     cx = W // 2
     # Soft shadow so it reads on bright skies without looking like a sticker.
     shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
